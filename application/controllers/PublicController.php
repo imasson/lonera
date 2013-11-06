@@ -130,6 +130,9 @@ class PublicController extends Zend_Controller_Action {
         $mod_ticket = new Mod_Ticket();
         $tkt = $mod_ticket->fetchRow("id = $id");
         
+        $mod_helptopic = new Mod_HelpTopic();
+        $helptopic = $mod_helptopic->fetchRow("id=".$tkt->id_helptopic);
+        
         $_data = $tkt->toArray();
         $status     = $_data['status'];
         $priority   = $_data['priority'];
@@ -140,6 +143,10 @@ class PublicController extends Zend_Controller_Action {
         $_data['status'] = Mod_Status::getStatusName($status);
         $_data['statusclass'] = Mod_Status::getStatusViewClass($status);
         
+        $_data['helptopic'] = '';
+        if( $helptopic ){
+            $_data['helptopic'] = $helptopic->title;
+        }
         
         $mod_ticketcomment = new Mod_TicketComment();
         $comments = $mod_ticketcomment->fetchAll("id_ticket = $id");
