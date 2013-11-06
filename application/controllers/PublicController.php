@@ -64,7 +64,8 @@ class PublicController extends Zend_Controller_Action {
         $this->_helper->layout->disableLayout();
 
         if (isset($_POST['tktTitle']) && !empty($_POST['tktTitle'])) {
-            //var_dump($_POST);
+            var_dump($_POST);
+            exit;
             // ["tktTitle"]=> string(15) "asdasdasdasdasd" ["tktDescription"]=> string(0) "" ["tktHelpTopic"]=> string(1) "0" ["tktPriority"]=> string(1) "0" 
             $mod_ticket = new Mod_Ticket();
 

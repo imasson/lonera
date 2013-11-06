@@ -58,23 +58,26 @@
                 </thead>
                 <tbody>
 
-                    <? for ($this->tickets->rewind(); $this->tickets->valid(); $this->tickets->next()): ?>
-                        <tr class="<?= Mod_Priority::getPriorityViewClass($this->tickets->current()->priority) ?>">
-                            <td><?= $this->tickets->current()->id ?></td>
-                            <td><?= $this->tickets->current()->title ?></td>
-                            <td><?= Mod_Priority::getPriorityName($this->tickets->current()->priority) ?></td>
-                            <td><span class="label <?= Mod_Status::getStatusViewClass($this->tickets->current()->status) ?>"><?= Mod_Status::getStatusName($this->tickets->current()->status) ?></span></td>
-                            <td><?= $this->tickets->current()->created_date ?></td>
-                            <td><?= $this->tickets->current()->updated_date ?></td>
-                            <td><?= $this->tickets->current()->support_user ?></td>
-                            <td>
-                                <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
-                                            return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
-                                <a href="#" title="Close" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
-                                            return false;"><span class="glyphicon glyphicon-remove"></span></a>
-                            </td>
-                        </tr>
-                    <? endfor; ?>
+                    <?if( $this->tickets !== FALSE ):?>
+                    
+                        <? for ($this->tickets->rewind(); $this->tickets->valid(); $this->tickets->next()): ?>
+                            <tr class="<?= Mod_Priority::getPriorityViewClass($this->tickets->current()->priority) ?>">
+                                <td><?= $this->tickets->current()->id ?></td>
+                                <td><?= $this->tickets->current()->title ?></td>
+                                <td><?= Mod_Priority::getPriorityName($this->tickets->current()->priority) ?></td>
+                                <td><span class="label <?= Mod_Status::getStatusViewClass($this->tickets->current()->status) ?>"><?= Mod_Status::getStatusName($this->tickets->current()->status) ?></span></td>
+                                <td><?= $this->tickets->current()->created_date ?></td>
+                                <td><?= $this->tickets->current()->updated_date ?></td>
+                                <td><?= $this->tickets->current()->support_user ?></td>
+                                <td>
+                                    <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
+                                                return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
+                                    <a href="#" title="Close" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
+                                                return false;"><span class="glyphicon glyphicon-remove"></span></a>
+                                </td>
+                            </tr>
+                        <? endfor; ?>
+                    <?endif?>
                 </tbody>
             </table>
             <br/>
