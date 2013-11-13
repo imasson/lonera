@@ -1,0 +1,59 @@
+<div class="container bs-docs-container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Help Topic</h1>
+            <p>xxxxxxx <a href="/public/list">view my tickets</a>.</p>
+            <br/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8" role="main">
+            <form class="form-inline" role="form" action="/admin/helptopic" method="POST" enctype="multipart/form-data">
+                
+                    <div class="row">
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="tktTitle" name="helpTopic" placeholder="Enter new Help Topic">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save" ></span>&nbsp;Save</button>
+                        </div>
+                    </div>
+                  
+                        
+                   
+                
+                
+            </form>
+            <hr/>
+                <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Help Topic</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                        <? for ($this->helptopics->rewind(); $this->helptopics->valid(); $this->helptopics->next()): ?>
+                            <tr>
+                                <td><?= $this->helptopics->current()->id ?></td>
+                                <td><?= $this->helptopics->current()->title ?></td>
+                                <td>
+                                    <a href="#" title="Close" onclick="javascript:editTkt(<?= $this->helptopics->current()->id ?>);
+                                                return false;"><span class="glyphicon glyphicon-remove"></span></a>
+                                </td>
+                            </tr>
+                        <? endfor; ?>
+                    
+                </tbody>
+            </table>
+            <br/>
+
+
+                
+            
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+    </div>
+</div>

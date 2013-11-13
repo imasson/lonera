@@ -94,6 +94,17 @@ class AdminController extends Zend_Controller_Action {
         exit;
     }
 
+    
+    public function helptopicAction() {
+    
+        $mod_helptopic = new Mod_HelpTopic();
+
+        $this->view->helptopics = $mod_helptopic->fetchAll();
+        
+        
+    }
+    
+    
     public function savetktAction() {
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
