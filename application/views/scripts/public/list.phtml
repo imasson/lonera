@@ -118,6 +118,7 @@
             <div class="modal-body">
                 <div class="bs-callout" id="editTktPriorityClass" style="margin-top:5px">
                     <h4 id="editTktTitle" >No default class</h4>
+                    <h6 id="editTktHelptopic" style="font-weight: bold"></h6>
                     <p><span id="editTktDate"></span>&nbsp;&nbsp;&nbsp;&nbsp;Priority:&nbsp;<strong><span id="editTktPriority">URGENT</span></strong>&nbsp;&nbsp;&nbsp;&nbsp;Status: <span class="label" id="editTktStatus">WAITING</span></p>
 
                     <p id="editTktDescription">Alerts don't have default classes, only base and modifier classes. A default gray alert doesn't make too much sense, so you're required to specify a type via contextual class. Choose from success, info, warning, or danger.</p>
@@ -169,6 +170,7 @@
                                             $("#editTktDate").html(_data.created_date);
                                             $("#editTktTitle").html(_data.title);
                                             $("#editTktDescription").html(_data.description);
+                                            $("#editTktHelptopic").html(_data.helptopic);
                                             $("#editTktPriority").html(_data.priority);
                                             $("#editTktStatus").html(_data.status);
                                             $("#editTktStatus").addClass(_data.statusclass);
@@ -192,6 +194,10 @@
                                                 
                                                 //$(container).addClass('alert alert-info');
                                                 $(container).css("margin-bottom","5px");
+                                                
+                                                if( Number(_data.comments[i].is_support_user) === 1 ){
+                                                    $(container).addClass("text-primary");
+                                                }
                                                 
                                                 $(title).html( _data.comments[i].author + ' ' );
                                                 $(date).html( _data.comments[i].created_date );
