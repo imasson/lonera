@@ -62,8 +62,8 @@ class AdminController extends Zend_Controller_Action {
         $tkt = $mod_ticket->fetchRow("id = $id");
 
         $mod_helptopic = new Mod_HelpTopic();
-        $helptopic = $mod_helptopic->fetchRow("id=".$tkt->id_helptopic);
-        
+        $helptopic = $mod_helptopic->fetchRow("id=" . $tkt->id_helptopic);
+
         $_data = $tkt->toArray();
         $status = $_data['status'];
         $priority = $_data['priority'];
@@ -75,9 +75,9 @@ class AdminController extends Zend_Controller_Action {
         $_data['status'] = Mod_Status::getStatusName($status);
         $_data['statusclass'] = Mod_Status::getStatusViewClass($status);
         $_data['statusvalue'] = $status;
-        
+
         $_data['helptopic'] = '';
-        if( $helptopic ){
+        if ($helptopic) {
             $_data['helptopic'] = $helptopic->title;
         }
 
@@ -94,17 +94,41 @@ class AdminController extends Zend_Controller_Action {
         exit;
     }
 
-    
     public function helptopicAction() {
-    
+
         $mod_helptopic = new Mod_HelpTopic();
 
         $this->view->helptopics = $mod_helptopic->fetchAll();
-        
+    }
+
+    public function addhelptopicAction() {
+
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+
+        if (isset($_POST['helptopic']) && !empty($_POST['helptopic'])) {
+
+
+            $mod_helptopic = new Mod_HelpTopic();
+            $ht = $mod_helptopic->createRow();
+            $ht->title = $_POST['helptopic'];
+            $ht->save();
+        }
+        $this->redirect("/admin/helptopic");
+    }
+
+    public function deletehelptopicAction() {
+
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            $mod_helptopic = new Mod_HelpTopic();
+            $ht = $mod_helptopic->fetchRow("id=" . $_GET['id']);
+            if ($ht)
+                $ht->delete();
+        }
+    $this->redirect("/admin/helptopic");
         
     }
-    
-    
+
     public function savetktAction() {
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
