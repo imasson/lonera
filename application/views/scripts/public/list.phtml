@@ -70,10 +70,10 @@
                                 <td><?= $this->tickets->current()->updated_date ?></td>
                                 <td><?= $this->tickets->current()->support_user ?></td>
                                 <td>
-                                    <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
-                                                return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
-                                    <a href="#" title="Close" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
-                                                return false;"><span class="glyphicon glyphicon-remove"></span></a>
+                                   <center> <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
+                                                return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;</center>
+                                    <!--<a href="#" title="Close" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
+                                                return false;"><span class="glyphicon glyphicon-remove"></span></a> -->
                                 </td>
                             </tr>
                         <? endfor; ?>
