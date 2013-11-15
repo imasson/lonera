@@ -41,6 +41,9 @@ class AdminController extends Zend_Controller_Action {
         $tickets = $mod_tickets->fetchAll($where);
 
         $this->view->tickets = $tickets;
+        
+        $mod_helptopic = new Mod_HelpTopic();
+        $this->view->helptopics = $mod_helptopic->fetchAll();
     }
 
     public function logoutAction() {
@@ -140,12 +143,14 @@ class AdminController extends Zend_Controller_Action {
             $tkt = $mod_ticket->fetchRow("id=" . $_POST['editFrmTktId']);
 
             if ($tkt) {
-
+                    
                 $tkt->priority = $_POST['editFrmTktPriority'];
                 $tkt->status = $_POST['editFrmTktStatus'];
                 $tkt->updated_date = date("Y-m-d h:i:s");
                 $tkt->support_user = Tkt_User::getUser();
-
+                
+                $tkt->id_helptopic = $_POST['editFrmTktHelpTopic'];
+                
                 $tkt->save();
 
                 if (!empty($_POST['editFrmTktComment'])) {

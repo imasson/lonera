@@ -152,6 +152,20 @@
                             </select>
                         </div>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="editFrmTktHelpTopic" class="col-sm-2 control-label">HelpTopic</label>
+                        <div class="col-sm-10">
+                            <select name="editFrmTktHelpTopic" id="editFrmTktHelpTopic" class="form-control">
+                                <option value="0">-- Ticket Help Topic --</option>
+                                 <? for ($this->helptopics->rewind(); $this->helptopics->valid(); $this->helptopics->next()): ?>
+                                 <option value="<?= $this->helptopics->current()->id ?>" label="<?= $this->helptopics->current()->title ?>" ></option>
+                                 <? endfor; ?>
+                               
+                            </select>
+                        </div>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="editFrmTktComment" class="col-sm-2 control-label">Comment</label>
                         <div class="col-sm-10">
@@ -194,6 +208,7 @@
                                             $("#editTktTitle").html(_data.title);
                                             $("#editTktDescription").html(_data.description);
                                             $("#editTktHelptopic").html(_data.helptopic);
+                                            $("#editFrmTktHelpTopic option[label="+"'"+_data.helptopic+"'"+"]").remove();
                                             $("#editTktPriority").html(_data.priority);
                                             $("#editTktStatus").html(_data.status);
                                             $("#editTktStatus").addClass(_data.statusclass);
