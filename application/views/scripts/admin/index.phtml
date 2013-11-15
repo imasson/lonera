@@ -208,7 +208,7 @@
                                             $("#editTktTitle").html(_data.title);
                                             $("#editTktDescription").html(_data.description);
                                             $("#editTktHelptopic").html(_data.helptopic);
-                                            $("#editFrmTktHelpTopic option[label="+"'"+_data.helptopic+"'"+"]").remove();
+                                            $("#editFrmTktHelpTopic").val(_data.id_helptopic);
                                             $("#editTktPriority").html(_data.priority);
                                             $("#editTktStatus").html(_data.status);
                                             $("#editTktStatus").addClass(_data.statusclass);
