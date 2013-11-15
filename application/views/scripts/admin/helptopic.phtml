@@ -1,0 +1,112 @@
+<div class="container bs-docs-container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Edit Help Topics</h1>
+            <p><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<a href="/admin/">Back to view my tickets</a>.</p>
+            <br/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8" role="main">
+            <div class="highlight">
+                <h4>Add new Help Topic</h4>
+                <form class="form-inline" role="form" action="/admin/addhelptopic" method="POST" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="tktTitle" name="helptopic" placeholder="Enter new Help Topic">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save" ></span>&nbsp;Save</button>
+                        </div>
+                    </div>
+                </form>
+                <br/>
+            </div>
+            <hr/>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Help Topic</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    <? for ($this->helptopics->rewind(); $this->helptopics->valid(); $this->helptopics->next()): ?>
+                        <tr>
+                            <td><?= $this->helptopics->current()->id ?></td>
+                            <td><?= $this->helptopics->current()->title ?></td>
+                            <td>
+                                <a href="#" title="Close" onclick="javascript:deleteTopic(<?= $this->helptopics->current()->id ?>);
+                                    return false;"><span class="glyphicon glyphicon-remove"></span></a>
+                            </td>
+                        </tr>
+                    <? endfor; ?>
+
+                </tbody>
+            </table>
+            <br/>
+
+
+
+
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+    </div>
+
+
+
+</div>
+
+
+<!-- Button trigger modal 
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>-->
+
+<!-- Modal -->
+<div class="modal fade" id="htmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Confirm delete Help Topic</h4>
+            </div>
+            <div class="modal-body">
+                <p> Are you sure to delete Help Topic: #<span id="htid"></span> </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" onclick="javascript:closeModal()" class="btn btn-primary">Confirm</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script type="text/javascript">
+
+    var htid = null;
+
+    function deleteTopic(id)
+    {
+        htid = id;
+        //if (confirm("Delete selected Help Topic?"))
+        //      {
+        $('#htid').html(id);
+           
+        $('#htmodal').modal();
+
+        //   }
+    
+    }
+    function closeModal()
+    {
+        $('#htmodal').modal('hide')
+    
+        window.location="/admin/deletehelptopic?id="+htid; 
+    }
+
+
+</script>

@@ -58,23 +58,26 @@
                 </thead>
                 <tbody>
 
-                    <? for ($this->tickets->rewind(); $this->tickets->valid(); $this->tickets->next()): ?>
-                        <tr class="<?= Mod_Priority::getPriorityViewClass($this->tickets->current()->priority) ?>">
-                            <td><?= $this->tickets->current()->id ?></td>
-                            <td><?= $this->tickets->current()->title ?></td>
-                            <td><?= Mod_Priority::getPriorityName($this->tickets->current()->priority) ?></td>
-                            <td><span class="label <?= Mod_Status::getStatusViewClass($this->tickets->current()->status) ?>"><?= Mod_Status::getStatusName($this->tickets->current()->status) ?></span></td>
-                            <td><?= $this->tickets->current()->created_date ?></td>
-                            <td><?= $this->tickets->current()->updated_date ?></td>
-                            <td><?= $this->tickets->current()->support_user ?></td>
-                            <td>
-                                <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
-                                            return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
-                                <a href="#" title="Close" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
-                                            return false;"><span class="glyphicon glyphicon-remove"></span></a>
-                            </td>
-                        </tr>
-                    <? endfor; ?>
+                    <?if( $this->tickets !== FALSE ):?>
+                    
+                        <? for ($this->tickets->rewind(); $this->tickets->valid(); $this->tickets->next()): ?>
+                            <tr class="<?= Mod_Priority::getPriorityViewClass($this->tickets->current()->priority) ?>">
+                                <td><?= $this->tickets->current()->id ?></td>
+                                <td><?= $this->tickets->current()->title ?></td>
+                                <td><?= Mod_Priority::getPriorityName($this->tickets->current()->priority) ?></td>
+                                <td><span class="label <?= Mod_Status::getStatusViewClass($this->tickets->current()->status) ?>"><?= Mod_Status::getStatusName($this->tickets->current()->status) ?></span></td>
+                                <td><?= $this->tickets->current()->created_date ?></td>
+                                <td><?= $this->tickets->current()->updated_date ?></td>
+                                <td><?= $this->tickets->current()->support_user ?></td>
+                                <td>
+                                   <center> <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
+                                                return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;</center>
+                                    <!--<a href="#" title="Close" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
+                                                return false;"><span class="glyphicon glyphicon-remove"></span></a> -->
+                                </td>
+                            </tr>
+                        <? endfor; ?>
+                    <?endif?>
                 </tbody>
             </table>
             <br/>
@@ -115,6 +118,7 @@
             <div class="modal-body">
                 <div class="bs-callout" id="editTktPriorityClass" style="margin-top:5px">
                     <h4 id="editTktTitle" >No default class</h4>
+                    <h6 id="editTktHelptopic" style="font-weight: bold"></h6>
                     <p><span id="editTktDate"></span>&nbsp;&nbsp;&nbsp;&nbsp;Priority:&nbsp;<strong><span id="editTktPriority">URGENT</span></strong>&nbsp;&nbsp;&nbsp;&nbsp;Status: <span class="label" id="editTktStatus">WAITING</span></p>
 
                     <p id="editTktDescription">Alerts don't have default classes, only base and modifier classes. A default gray alert doesn't make too much sense, so you're required to specify a type via contextual class. Choose from success, info, warning, or danger.</p>
@@ -133,8 +137,9 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default btn-primary pull-right"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Send &amp; close</button>
+                        <div class="col-sm-offset-2 col-sm-10" style="text-align:right">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Send &amp; close</button>
                         </div>
                     </div>
                 </form>
@@ -166,6 +171,7 @@
                                             $("#editTktDate").html(_data.created_date);
                                             $("#editTktTitle").html(_data.title);
                                             $("#editTktDescription").html(_data.description);
+                                            $("#editTktHelptopic").html(_data.helptopic);
                                             $("#editTktPriority").html(_data.priority);
                                             $("#editTktStatus").html(_data.status);
                                             $("#editTktStatus").addClass(_data.statusclass);
@@ -189,6 +195,10 @@
                                                 
                                                 //$(container).addClass('alert alert-info');
                                                 $(container).css("margin-bottom","5px");
+                                                
+                                                if( Number(_data.comments[i].is_support_user) === 1 ){
+                                                    $(container).addClass("text-primary");
+                                                }
                                                 
                                                 $(title).html( _data.comments[i].author + ' ' );
                                                 $(date).html( _data.comments[i].created_date );

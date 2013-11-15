@@ -52,7 +52,7 @@
                         <th>Status</th>
                         <th>Created</th>
                         <th>Updated</th>
-                        <th>Support User</th>
+                        <th>User</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -66,12 +66,12 @@
                             <td><span class="label <?= Mod_Status::getStatusViewClass($this->tickets->current()->status) ?>"><?= Mod_Status::getStatusName($this->tickets->current()->status) ?></span></td>
                             <td><?= $this->tickets->current()->created_date ?></td>
                             <td><?= $this->tickets->current()->updated_date ?></td>
-                            <td><?= $this->tickets->current()->support_user ?></td>
+                            <td><?= $this->tickets->current()->created_user ?></td>
                             <td>
-                                <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
-                                            return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;
-                                <a href="#" title="Close" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
-                                            return false;"><span class="glyphicon glyphicon-remove"></span></a>
+                                <center> <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
+                                            return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp; <center/>
+                            <!--    <a href="#" title="Close" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
+                                            return false;"><span class="glyphicon glyphicon-remove"></span></a> -->
                             </td>
                         </tr>
                     <? endfor; ?>
@@ -115,16 +115,57 @@
             <div class="modal-body">
                 <div class="bs-callout" id="editTktPriorityClass" style="margin-top:5px">
                     <h4 id="editTktTitle" >No default class</h4>
+                    <h6 id="editTktHelptopic" style="font-weight: bold"></h6>
                     <p><span id="editTktDate"></span>&nbsp;&nbsp;&nbsp;&nbsp;Priority:&nbsp;<strong><span id="editTktPriority">URGENT</span></strong>&nbsp;&nbsp;&nbsp;&nbsp;Status: <span class="label" id="editTktStatus">WAITING</span></p>
+                    <hr/>
 
                     <p id="editTktDescription">Alerts don't have default classes, only base and modifier classes. A default gray alert doesn't make too much sense, so you're required to specify a type via contextual class. Choose from success, info, warning, or danger.</p>
 
                 </div>
                 
-                <strong>Add a comment to support</strong>
+                <strong>Support</strong>
                 <div>&nbsp;</div>
-                <form role="form" class="form-horizontal" action="/public/savecomment" method="POST" enctype="multipart/form-data">
+                <form role="form" class="form-horizontal" action="/admin/savetkt" method="POST" enctype="multipart/form-data">
                     <input type="hidden" id="editFrmTktId" name="editFrmTktId" value="" />
+                    <div class="form-group">
+                        <label for="editFrmTktStatus" class="col-sm-2 control-label">Status</label>
+                        <div class="col-sm-10">
+                            <select name="editFrmTktStatus" id="editFrmTktStatus" class="form-control">
+                                <option value="0">-- Ticket status --</option>
+                                <option value="<?= Mod_Status::WAITING ?>">WAITING</option>
+                                <option value="<?= Mod_Status::IN_PROGRESS ?>" >IN PROGRESS</option>
+                                <option value="<?= Mod_Status::RESOLVED ?>" >RESOLVED</option>
+                                <option value="<?= Mod_Status::CLOSED ?>" >CLOSED</option>
+                                <option value="<?= Mod_Status::REJECTED ?>" >REJECTED</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editFrmTktPriority" class="col-sm-2 control-label">Priority</label>
+                        <div class="col-sm-10">
+                            <select name="editFrmTktPriority" id="editFrmTktPriority" class="form-control">
+                                <option value="0">-- Ticket priority --</option>
+                                <option value="<?= Mod_Priority::LOW ?>" >LOW</option>
+                                <option value="<?= Mod_Priority::NORMAL ?>" >NORMAL</option>
+                                <option value="<?= Mod_Priority::HIGH ?>" >HIGH</option>
+                                <option value="<?= Mod_Priority::URGENT ?>" >URGENT</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editFrmTktHelpTopic" class="col-sm-2 control-label">HelpTopic</label>
+                        <div class="col-sm-10">
+                            <select name="editFrmTktHelpTopic" id="editFrmTktHelpTopic" class="form-control">
+                                <option value="0">-- Ticket Help Topic --</option>
+                                 <? for ($this->helptopics->rewind(); $this->helptopics->valid(); $this->helptopics->next()): ?>
+                                 <option value="<?= $this->helptopics->current()->id ?>" label="<?= $this->helptopics->current()->title ?>" ></option>
+                                 <? endfor; ?>
+                               
+                            </select>
+                        </div>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="editFrmTktComment" class="col-sm-2 control-label">Comment</label>
                         <div class="col-sm-10">
@@ -133,8 +174,9 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default btn-primary pull-right"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Send &amp; close</button>
+                        <div class="col-sm-offset-2 col-sm-10" style="text-align:right">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Send &amp; close</button>
                         </div>
                     </div>
                 </form>
@@ -155,7 +197,7 @@
 
                                     function editTkt(id) {
 
-                                        var uri = '/public/gettkt/id/' + id;
+                                        var uri = '/admin/gettkt/id/' + id;
                                         $.post(uri, {}, function(_data) {
 
                                             console.log(_data);
@@ -166,6 +208,8 @@
                                             $("#editTktDate").html(_data.created_date);
                                             $("#editTktTitle").html(_data.title);
                                             $("#editTktDescription").html(_data.description);
+                                            $("#editTktHelptopic").html(_data.helptopic);
+                                            $("#editFrmTktHelpTopic").val(_data.id_helptopic);
                                             $("#editTktPriority").html(_data.priority);
                                             $("#editTktStatus").html(_data.status);
                                             $("#editTktStatus").addClass(_data.statusclass);
@@ -179,6 +223,9 @@
                                                 $("#editTktPriorityClass").addClass('bs-callout bs-callout-info');
                                             }
 
+                                            $("#editFrmTktPriority").val(_data.priorityvalue);
+                                            $("#editFrmTktStatus").val(_data.statusvalue);
+
                                             $("#tktcomments").html("");
                                             for(var i=0; i < _data.comments.length; i++){
                                                 
@@ -189,6 +236,9 @@
                                                 
                                                 //$(container).addClass('alert alert-info');
                                                 $(container).css("margin-bottom","5px");
+                                                if( Number(_data.comments[i].is_support_user) === 1 ){
+                                                    $(container).addClass("text-primary");
+                                                }
                                                 
                                                 $(title).html( _data.comments[i].author + ' ' );
                                                 $(date).html( _data.comments[i].created_date );
