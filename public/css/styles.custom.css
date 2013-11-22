@@ -38,3 +38,6 @@ a:hover, a:focus {
 color: #563d7c;
 text-decoration: underline;
 }
+
+.width200 {width:200px;}
+.marginLeft10 {margin-left: 10px;}

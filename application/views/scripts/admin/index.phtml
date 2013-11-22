@@ -68,14 +68,14 @@
                             <td><?= $this->tickets->current()->updated_date ?></td>
                             <td><?= $this->tickets->current()->created_user ?></td>
                             <td>
-                                <center> <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
-                                            return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp; <center/>
-                            <!--    <a href="#" title="Close" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
-                                            return false;"><span class="glyphicon glyphicon-remove"></span></a> -->
-                            </td>
+                    <center> <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
+                        return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp; <center/>
+                <!--    <a href="#" title="Close" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
+                                return false;"><span class="glyphicon glyphicon-remove"></span></a> -->
+                        </td>
                         </tr>
                     <? endfor; ?>
-                </tbody>
+                    </tbody>
             </table>
             <br/>
             <!-- PAGINADO 
@@ -117,12 +117,13 @@
                     <h4 id="editTktTitle" >No default class</h4>
                     <h6 id="editTktHelptopic" style="font-weight: bold"></h6>
                     <p><span id="editTktDate"></span>&nbsp;&nbsp;&nbsp;&nbsp;Priority:&nbsp;<strong><span id="editTktPriority">URGENT</span></strong>&nbsp;&nbsp;&nbsp;&nbsp;Status: <span class="label" id="editTktStatus">WAITING</span></p>
+                    <p id="editTktAttached"></p>
                     <hr/>
 
                     <p id="editTktDescription">Alerts don't have default classes, only base and modifier classes. A default gray alert doesn't make too much sense, so you're required to specify a type via contextual class. Choose from success, info, warning, or danger.</p>
 
                 </div>
-                
+
                 <strong>Support</strong>
                 <div>&nbsp;</div>
                 <form role="form" class="form-horizontal" action="/admin/savetkt" method="POST" enctype="multipart/form-data">
@@ -152,20 +153,20 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="editFrmTktHelpTopic" class="col-sm-2 control-label">HelpTopic</label>
                         <div class="col-sm-10">
                             <select name="editFrmTktHelpTopic" id="editFrmTktHelpTopic" class="form-control">
                                 <option value="0">-- Ticket Help Topic --</option>
-                                 <? for ($this->helptopics->rewind(); $this->helptopics->valid(); $this->helptopics->next()): ?>
-                                 <option value="<?= $this->helptopics->current()->id ?>" label="<?= $this->helptopics->current()->title ?>" ></option>
-                                 <? endfor; ?>
-                               
+                                <? for ($this->helptopics->rewind(); $this->helptopics->valid(); $this->helptopics->next()): ?>
+                                    <option value="<?= $this->helptopics->current()->id ?>" label="<?= $this->helptopics->current()->title ?>" ></option>
+                                <? endfor; ?>
+
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="editFrmTktComment" class="col-sm-2 control-label">Comment</label>
                         <div class="col-sm-10">
@@ -180,11 +181,11 @@
                         </div>
                     </div>
                 </form>
-               
+
                 <div id="tktcomments">
-                    
+
                 </div>
-                
+
             </div>
             <!--<div class="modal-footer">
                 
@@ -195,73 +196,86 @@
 
 <script type="text/javascript">
 
-                                    function editTkt(id) {
+    function editTkt(id) {
 
-                                        var uri = '/admin/gettkt/id/' + id;
-                                        $.post(uri, {}, function(_data) {
+        var uri = '/admin/gettkt/id/' + id;
+        $.post(uri, {}, function(_data) {
 
-                                            console.log(_data);
+            console.log(_data);
 
                                             
-                                            $("#editFrmTktId").val(_data.id);
+            if (_data.attached!=null){
+                
+                var link=document.createElement("a");
+                $(link).attr("href",_data.attachedlink);
+                $(link).attr("target","_blank");
+                var fileicon=document.createElement("i");
+                $(fileicon).addClass("glyphicon glyphicon-file");
+                $(link).append(fileicon);
+                $(link).append(_data.attached);
+                $("#editTktAttached").html(link);
+            }else{
+                $("#editTktAttached").html("");
+            }
+                                            
+            $("#editFrmTktId").val(_data.id);
+            $("#editTktDate").html(_data.created_date);
+            $("#editTktTitle").html(_data.title);
+            $("#editTktDescription").html(_data.description);
+            $("#editTktHelptopic").html(_data.helptopic);
+            $("#editFrmTktHelpTopic").val(_data.id_helptopic);
+            $("#editTktPriority").html(_data.priority);
+            $("#editTktStatus").html(_data.status);
+            $("#editTktStatus").addClass(_data.statusclass);
+                                            
+            $("#editTktPriorityClass").attr('class', '');
+            if (_data.priorityclass !== '') {
 
-                                            $("#editTktDate").html(_data.created_date);
-                                            $("#editTktTitle").html(_data.title);
-                                            $("#editTktDescription").html(_data.description);
-                                            $("#editTktHelptopic").html(_data.helptopic);
-                                            $("#editFrmTktHelpTopic").val(_data.id_helptopic);
-                                            $("#editTktPriority").html(_data.priority);
-                                            $("#editTktStatus").html(_data.status);
-                                            $("#editTktStatus").addClass(_data.statusclass);
+                $("#editTktPriorityClass").addClass('bs-callout bs-callout-' + _data.priorityclass);
+            }
+            else {
+                $("#editTktPriorityClass").addClass('bs-callout bs-callout-info');
+            }
 
-                                            $("#editTktPriorityClass").attr('class', '');
-                                            if (_data.priorityclass !== '') {
+            $("#editFrmTktPriority").val(_data.priorityvalue);
+            $("#editFrmTktStatus").val(_data.statusvalue);
 
-                                                $("#editTktPriorityClass").addClass('bs-callout bs-callout-' + _data.priorityclass);
-                                            }
-                                            else {
-                                                $("#editTktPriorityClass").addClass('bs-callout bs-callout-info');
-                                            }
-
-                                            $("#editFrmTktPriority").val(_data.priorityvalue);
-                                            $("#editFrmTktStatus").val(_data.statusvalue);
-
-                                            $("#tktcomments").html("");
-                                            for(var i=0; i < _data.comments.length; i++){
+            $("#tktcomments").html("");
+            for(var i=0; i < _data.comments.length; i++){
                                                 
-                                                var title = document.createElement("strong");
-                                                var date = document.createElement("small");
-                                                var comment = document.createElement("p");
-                                                var container = document.createElement("div");
+                var title = document.createElement("strong");
+                var date = document.createElement("small");
+                var comment = document.createElement("p");
+                var container = document.createElement("div");
                                                 
-                                                //$(container).addClass('alert alert-info');
-                                                $(container).css("margin-bottom","5px");
-                                                if( Number(_data.comments[i].is_support_user) === 1 ){
-                                                    $(container).addClass("text-primary");
-                                                }
+                //$(container).addClass('alert alert-info');
+                $(container).css("margin-bottom","5px");
+                if( Number(_data.comments[i].is_support_user) === 1 ){
+                    $(container).addClass("text-primary");
+                }
                                                 
-                                                $(title).html( _data.comments[i].author + ' ' );
-                                                $(date).html( _data.comments[i].created_date );
-                                                $(comment).html( _data.comments[i].comment );
+                $(title).html( _data.comments[i].author + ' ' );
+                $(date).html( _data.comments[i].created_date );
+                $(comment).html( _data.comments[i].comment );
                                                 
-                                                $(title).append(date);
+                $(title).append(date);
                                                 
-                                                $(container).append(title).append(comment);
-                                                $("#tktcomments").append(container);
+                $(container).append(title).append(comment);
+                $("#tktcomments").append(container);
                                              
-                                            }
+            }
 
-                                             //<h4 class="media-heading">sarrubia@gmail.com <small>2013-10-01</small></h4>
-                                             //<p>Un comentario largo Un comentario largo Un comentario largo Un comentario largo Un comentario largo Un comentario largo Un comentario largo Un comentario largo </p>
+            //<h4 class="media-heading">sarrubia@gmail.com <small>2013-10-01</small></h4>
+            //<p>Un comentario largo Un comentario largo Un comentario largo Un comentario largo Un comentario largo Un comentario largo Un comentario largo Un comentario largo </p>
 
 
-                                            $('#tktEditForm').modal({
-                                                backdrop: 'static',
-                                                keyboard: false,
-                                                show: true
-                                            });
+            $('#tktEditForm').modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            });
 
-                                        }, 'json');
+        }, 'json');
 
-                                    }
+    }
 </script>
