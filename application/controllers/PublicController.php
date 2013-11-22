@@ -62,8 +62,14 @@ class PublicController extends Zend_Controller_Action {
     public function addAction() {
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
-
-        if (isset($_POST['tktTitle']) && !empty($_POST['tktTitle'])) { 
+        
+        /*
+         * array(1) { ["tktfile"]=> array(5) { ["name"]=> string(24) "star-trek-2_1-single.jpg" ["type"]=> string(10) "image/jpeg" ["tmp_name"]=> string(23) "C:\xampp\tmp\php6DC.tmp" ["error"]=> int(0) ["size"]=> int(47365) } }
+         */
+        
+        if (isset($_POST['tktTitle']) && !empty($_POST['tktTitle'])) {
+            
+            
             // ["tktTitle"]=> string(15) "asdasdasdasdasd" ["tktDescription"]=> string(0) "" ["tktHelpTopic"]=> string(1) "0" ["tktPriority"]=> string(1) "0" 
             $mod_ticket = new Mod_Ticket();
 
@@ -81,6 +87,33 @@ class PublicController extends Zend_Controller_Action {
                 $tkt->priority  = $_POST['tktPriority'];
             
             $id_ticket = $tkt->save();
+            
+            
+            
+            //TRATAR ERROR DE ARCHIVO
+            if( isset($_FILES['tktfile']) && $_FILES['tktfile']['error']==0 && $_FILES['tktfile']['size'] > 0 ){
+                $config = Common_Config::getInstance();
+                
+                $tmp_filename = $_FILES['tktfile']['tmp_name'];
+                
+                $destination = $config->tkttool->upload->dir;
+                
+                $filename = $id_ticket. $_FILES['tktfile']['name'];
+                //$filesystem_name = sha1($filename);
+                
+                if( move_uploaded_file($tmp_filename, $destination . $filename) ){
+                    echo "SUBIOO";
+                    $tkt->attached  = $filename;
+                    $id_ticket = $tkt->save();
+                }
+                else{
+                    echo "NOOO";
+                }
+               }
+            
+            
+            
+            
             
             
             $_confini = Common_Config::getInstance();
