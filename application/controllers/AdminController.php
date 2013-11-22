@@ -78,7 +78,8 @@ class AdminController extends Zend_Controller_Action {
         $_data['status'] = Mod_Status::getStatusName($status);
         $_data['statusclass'] = Mod_Status::getStatusViewClass($status);
         $_data['statusvalue'] = $status;
-
+        $_data['attachedlink'] = '/upload/'.$_data['attached'];
+        
         $_data['helptopic'] = '';
         if ($helptopic) {
             $_data['helptopic'] = $helptopic->title;
