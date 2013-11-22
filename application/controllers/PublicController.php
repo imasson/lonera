@@ -174,7 +174,7 @@ class PublicController extends Zend_Controller_Action {
         $_data['priorityclass'] = Mod_Priority::getPriorityViewClass($priority);
         $_data['status'] = Mod_Status::getStatusName($status);
         $_data['statusclass'] = Mod_Status::getStatusViewClass($status);
-        
+        $_data['attachedlink'] = '/upload/'.$_data['attached'];
         $_data['helptopic'] = '';
         if( $helptopic ){
             $_data['helptopic'] = $helptopic->title;
