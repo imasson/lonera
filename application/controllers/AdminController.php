@@ -4,11 +4,40 @@ class AdminController extends Zend_Controller_Action {
 
     public function init() {
 
-        if (!Tkt_User::isvalid() || !Tkt_User::issupport()) {
-            $this->redirect("/");
+        $action = $this->getParam("action");
+
+        //Si action = login ---> te dejo pasar al login
+        if ($action != "login") {
+
+            //Si no
+            //Si no es valido ---> te mando al /admin/login
+            if (!Tkt_User::isvalid()) {
+                $this->redirect("/admin/login");
+            } elseif (!Tkt_User::issupport()) {
+                $this->redirect("/");
+            }
+            //Sino
+            //Si no es de soporte ---> redirect a raiz /
         }
 
         $this->_helper->layout->setLayout('adminlayout');
+    }
+
+    public function loginAction() {
+        $this->_helper->layout->disableLayout();
+        $this->view->login_error=false;
+        
+        if (isset($_POST['email']) && isset($_POST['password'])) {
+            
+            $mod_user= new Mod_Users();
+            $user=$mod_user->fetchRow("email='{$_POST['email']}' AND password='{$_POST['password']}'");
+            if ($user){
+                Tkt_User::setUser($_POST['email'],true);
+                $this->redirect("/admin");
+            }
+            $this->view->login_error=true;
+            
+        }
     }
 
     public function indexAction() {
@@ -41,7 +70,7 @@ class AdminController extends Zend_Controller_Action {
         $tickets = $mod_tickets->fetchAll($where);
 
         $this->view->tickets = $tickets;
-        
+
         $mod_helptopic = new Mod_HelpTopic();
         $this->view->helptopics = $mod_helptopic->fetchAll();
     }
@@ -78,8 +107,8 @@ class AdminController extends Zend_Controller_Action {
         $_data['status'] = Mod_Status::getStatusName($status);
         $_data['statusclass'] = Mod_Status::getStatusViewClass($status);
         $_data['statusvalue'] = $status;
-        $_data['attachedlink'] = '/upload/'.$_data['attached'];
-        
+        $_data['attachedlink'] = '/upload/' . $_data['attached'];
+
         $_data['helptopic'] = '';
         if ($helptopic) {
             $_data['helptopic'] = $helptopic->title;
@@ -129,8 +158,7 @@ class AdminController extends Zend_Controller_Action {
             if ($ht)
                 $ht->delete();
         }
-    $this->redirect("/admin/helptopic");
-        
+        $this->redirect("/admin/helptopic");
     }
 
     public function savetktAction() {
@@ -144,14 +172,14 @@ class AdminController extends Zend_Controller_Action {
             $tkt = $mod_ticket->fetchRow("id=" . $_POST['editFrmTktId']);
 
             if ($tkt) {
-                    
+
                 $tkt->priority = $_POST['editFrmTktPriority'];
                 $tkt->status = $_POST['editFrmTktStatus'];
                 $tkt->updated_date = date("Y-m-d h:i:s");
                 $tkt->support_user = Tkt_User::getUser();
-                
+
                 $tkt->id_helptopic = $_POST['editFrmTktHelpTopic'];
-                
+
                 $tkt->save();
 
                 if (!empty($_POST['editFrmTktComment'])) {
