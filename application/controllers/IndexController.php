@@ -39,6 +39,13 @@ class IndexController extends Zend_Controller_Action {
         $this->redirect("/");
     }
 
+    public function hashAction() {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+        echo sha1($_GET['clave']);
+        
+    }
+    
 }
 
 ?>

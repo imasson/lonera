@@ -1,0 +1,933 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>carla</Author>
+  <LastAuthor>imasson</LastAuthor>
+  <Created>2012-03-19T20:03:34Z</Created>
+  <LastSaved>2013-11-05T13:44:17Z</LastSaved>
+  <Version>12.00</Version>
+ </DocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>8010</WindowHeight>
+  <WindowWidth>17400</WindowWidth>
+  <WindowTopX>240</WindowTopX>
+  <WindowTopY>180</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Arial"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s62">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s63">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s64">
+   <Alignment ss:Horizontal="Right" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s65">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s66">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s67">
+   <Alignment ss:Horizontal="Right" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s68">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s69">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s70">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s71">
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s72">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#000000" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s73">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"
+     ss:Color="#558FA6"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"
+     ss:Color="#558FA6"/>
+   </Borders>
+   <Font ss:FontName="Trebuchet MS" x:Family="Swiss" ss:Size="8"/>
+  </Style>
+  <Style ss:ID="s74">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"
+     ss:Color="#558FA6"/>
+   </Borders>
+   <Font ss:FontName="Trebuchet MS" x:Family="Swiss" ss:Size="8"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s75">
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="11" ss:Bold="1"/>
+   <Interior ss:Color="#A5A5A5" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s76">
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Interior ss:Color="#A5A5A5" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s77">
+   <Borders>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Interior ss:Color="#A5A5A5" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s78">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s79">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#75923C" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s80">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#75923C" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s81">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#75923C" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s82">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#75923C" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s83">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#75923C" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s84">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#75923C" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s85">
+   <Alignment ss:Horizontal="Right" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#75923C" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s86">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s87">
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s88">
+   <Borders>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s89">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#75923C" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s90">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Interior ss:Color="#75923C" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s91">
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#75923C" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s92">
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s93">
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#7030A0" ss:Italic="1"/>
+  </Style>
+  <Style ss:ID="s94">
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+   <Interior ss:Color="#000000" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="Short Date"/>
+  </Style>
+  <Style ss:ID="s95">
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+   <Interior ss:Color="#000000" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s96">
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#7030A0"/>
+   <NumberFormat ss:Format="Short Date"/>
+  </Style>
+  <Style ss:ID="s97">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s98">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s99">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss"/>
+   <Interior ss:Color="#000000" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="Short Date"/>
+  </Style>
+  <Style ss:ID="s100">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss"/>
+   <Interior ss:Color="#000000" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s101">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss"/>
+   <NumberFormat ss:Format="Short Date"/>
+  </Style>
+  <Style ss:ID="s102">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss"/>
+   <NumberFormat ss:Format="Short Date"/>
+  </Style>
+  <Style ss:ID="s103">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s104">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s105">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s106">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s107">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Microsoft Sans Serif" x:Family="Swiss"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+ </Styles>
+ <Names>
+  <NamedRange ss:Name="Localidad" ss:RefersTo="=Hoja2!#REF!"/>
+  <NamedRange ss:Name="Partido" ss:RefersTo="=Hoja2!C5"/>
+ </Names>
+ <Worksheet ss:Name="Ficha">
+  <Table ss:ExpandedColumnCount="60" ss:ExpandedRowCount="4" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultColumnWidth="60">
+   <Column ss:AutoFitWidth="0" ss:Width="71.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="78"/>
+   <Column ss:AutoFitWidth="0" ss:Width="104.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="121.5"/>
+   <Column ss:Hidden="1" ss:AutoFitWidth="0" ss:Width="96.75"/>
+   <Column ss:Hidden="1" ss:AutoFitWidth="0" ss:Width="95.25"/>
+   <Column ss:Hidden="1" ss:AutoFitWidth="0" ss:Width="39"/>
+   <Column ss:Width="109.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="94.5"/>
+   <Column ss:Width="117"/>
+   <Column ss:Width="75"/>
+   <Column ss:Width="100.5"/>
+   <Column ss:Index="15" ss:Width="115.5"/>
+   <Column ss:Index="22" ss:Width="99"/>
+   <Column ss:AutoFitWidth="0" ss:Width="82.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="81.75"/>
+   <Column ss:Index="27" ss:Width="119.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="144.75"/>
+   <Column ss:Width="106.5"/>
+   <Column ss:Width="87"/>
+   <Column ss:AutoFitWidth="0" ss:Width="72.75"/>
+   <Column ss:Width="126"/>
+   <Column ss:Width="105.75"/>
+   <Column ss:Width="167.25"/>
+   <Column ss:Width="200.25"/>
+   <Column ss:Width="250.5"/>
+   <Column ss:Width="156"/>
+   <Column ss:Width="135.75"/>
+   <Column ss:Width="177.75"/>
+   <Column ss:Width="157.5"/>
+   <Column ss:Width="167.25"/>
+   <Column ss:Width="147"/>
+   <Column ss:Width="146.25"/>
+   <Column ss:Width="99.75"/>
+   <Column ss:Index="47" ss:Width="117"/>
+   <Column ss:AutoFitWidth="0" ss:Width="42"/>
+   <Column ss:Index="50" ss:Width="81"/>
+   <Column ss:Index="53" ss:Width="81"/>
+   <Column ss:Index="56" ss:Width="81"/>
+   <Column ss:Index="58" ss:Width="243"/>
+   <Column ss:Width="64.5"/>
+   <Column ss:Width="118.5"/>
+   <Row ss:Height="15.75">
+    <Cell ss:StyleID="s75"><Data ss:Type="String">DATOS PERSONALES </Data></Cell>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s76"/>
+    <Cell ss:StyleID="s77"/>
+    <Cell ss:StyleID="s62"><Data ss:Type="String">Domicilio</Data></Cell>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s66"/>
+    <Cell ss:StyleID="s67"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s62"><Data ss:Type="String">Teléfono</Data></Cell>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s79"><Data ss:Type="String">Estudios Secundarios</Data></Cell>
+    <Cell ss:StyleID="s80"/>
+    <Cell ss:StyleID="s62"><Data ss:Type="String">Terciario</Data></Cell>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s79"><Data ss:Type="String">Universitario</Data></Cell>
+    <Cell ss:StyleID="s81"/>
+    <Cell ss:StyleID="s80"/>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Cursos [carrera / Institución / estado]</Data></Cell>
+    <Cell ss:StyleID="s91"><Data ss:Type="String">Posgrado / MBA [carrera / Institución / estado]</Data></Cell>
+    <Cell ss:StyleID="s62"><Data ss:Type="String">Idioma - Inglés</Data></Cell>
+    <Cell ss:StyleID="s65"/>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">Idioma - Portugués</Data></Cell>
+    <Cell ss:StyleID="s90"/>
+    <Cell ss:StyleID="s62"><Data ss:Type="String">Idioma - Francés</Data></Cell>
+    <Cell ss:StyleID="s65"/>
+    <Cell ss:StyleID="s89"><Data ss:Type="String">Idioma - Otro</Data></Cell>
+    <Cell ss:StyleID="s87"><Data ss:Type="String">Esposa/o - Conyuge</Data></Cell>
+    <Cell ss:StyleID="s88"/>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">Hijo 1</Data></Cell>
+    <Cell ss:StyleID="s84"/>
+    <Cell ss:StyleID="s85"/>
+    <Cell ss:StyleID="s62"><Data ss:Type="String">Hijo 2</Data></Cell>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s65"/>
+    <Cell ss:StyleID="s79"><Data ss:Type="String">Hijo 3</Data></Cell>
+    <Cell ss:StyleID="s81"/>
+    <Cell ss:StyleID="s80"/>
+    <Cell ss:StyleID="s62"><Data ss:Type="String">Hijo 4</Data></Cell>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s65"/>
+    <Cell ss:StyleID="s79"><Data ss:Type="String">CONTACTO PARA CASOS DE EMERGENCIA</Data></Cell>
+    <Cell ss:StyleID="s81"/>
+    <Cell ss:StyleID="s85"/>
+   </Row>
+   <Row ss:Height="13.5">
+    <Cell ss:StyleID="s68"><Data ss:Type="String">Tipo Doc</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="String">Numero</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="String">Nombres</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="String">Apellido</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Fecha de Ingreso</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Fecha de Egreso</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Puesto</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="String">Apellido de Casada</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="String">Sexo</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="String">Fecha de Nacimiento</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="String">Nacionalidad</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="String">Otra Nacionalidad</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="String">Edad</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="String">Estado Civil</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Fecha de Matrimonio</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Dirección</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Número</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Piso</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Dpto.</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Entre calle</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">y calle</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Localidad / Barrio</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Partido</Data></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String">C.P.</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Particular</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Celular</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Estado</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Título</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Estado</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Carrera</Data></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String">Institución</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Estado</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Carrera</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Institución</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s78"/>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Expresión verbal</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Expresión Escrita</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Expresión verbal</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Expresión Escrita</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Expresión verbal</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Expresión Escrita</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Especifique idioma y nivel</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Nombre Completo</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">DNI</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Nombre Completo</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Fecha de Nacimiento</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">DNI</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Nombre Completo</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Fecha de Nac.</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">DNI</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Nombre Completo</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Fecha de Nac.</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">DNI</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Nombre Completo</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Fecha de Nac.</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">DNI</Data></Cell>
+    <Cell ss:StyleID="s78"><Data ss:Type="String">Nombre y Apellido</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Parentesco</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">Teléfono de Contacto</Data></Cell>
+   </Row>
+   <Row ss:Height="13.5" ss:StyleID="s71">
+    <Cell ss:StyleID="s97"><Data ss:Type="String">DNI</Data></Cell>
+    <Cell ss:StyleID="s107"><Data ss:Type="Number">32723862</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Ivan</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Masson</Data></Cell>
+    <Cell ss:StyleID="s99"/>
+    <Cell ss:StyleID="s99"/>
+    <Cell ss:StyleID="s100"/>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">-</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Masculino</Data></Cell>
+    <Cell ss:StyleID="s101"><Data ss:Type="DateTime">1987-08-01T00:00:00.000</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Argentino</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Seleccione</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="Number">26</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Soletero</Data></Cell>
+    <Cell ss:StyleID="s102"/>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">Saavedra</Data></Cell>
+    <Cell ss:StyleID="s104"><Data ss:Type="Number">751</Data></Cell>
+    <Cell ss:StyleID="s104"/>
+    <Cell ss:StyleID="s104"><Data ss:Type="Number">8</Data></Cell>
+    <Cell ss:StyleID="s104"><Data ss:Type="String">sarmiento</Data></Cell>
+    <Cell ss:StyleID="s104"><Data ss:Type="String">mitre</Data></Cell>
+    <Cell ss:StyleID="s104"><Data ss:Type="String">Tandil</Data></Cell>
+    <Cell ss:StyleID="s104"><Data ss:Type="String">Tandil</Data></Cell>
+    <Cell ss:StyleID="s104"><Data ss:Type="Number">7000</Data></Cell>
+    <Cell ss:StyleID="s103"/>
+    <Cell ss:StyleID="s105"><Data ss:Type="Number">2494307616</Data></Cell>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">finalizado</Data></Cell>
+    <Cell ss:StyleID="s105"><Data ss:Type="String">Tecnico en informatica</Data></Cell>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">Seleccione</Data></Cell>
+    <Cell ss:StyleID="s104"/>
+    <Cell ss:StyleID="s104"/>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">En curso</Data></Cell>
+    <Cell ss:StyleID="s104"><Data ss:Type="String">Ing. en sistemas</Data></Cell>
+    <Cell ss:StyleID="s105"><Data ss:Type="String">UNICEN</Data></Cell>
+    <Cell ss:StyleID="s106"/>
+    <Cell ss:StyleID="s106"/>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">SI</Data></Cell>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">SI</Data></Cell>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">Seleccione</Data></Cell>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">Seleccione</Data></Cell>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">Seleccione</Data></Cell>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">Seleccione</Data></Cell>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">Seleccione</Data></Cell>
+    <Cell ss:StyleID="s103"/>
+    <Cell ss:StyleID="s105"/>
+    <Cell ss:StyleID="s103"/>
+    <Cell ss:StyleID="s104"/>
+    <Cell ss:StyleID="s105"/>
+    <Cell ss:StyleID="s103"/>
+    <Cell ss:StyleID="s104"/>
+    <Cell ss:StyleID="s105"/>
+    <Cell ss:StyleID="s103"/>
+    <Cell ss:StyleID="s104"/>
+    <Cell ss:StyleID="s105"/>
+    <Cell ss:StyleID="s103"/>
+    <Cell ss:StyleID="s104"/>
+    <Cell ss:StyleID="s105"/>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">Daniel Masson</Data></Cell>
+    <Cell ss:StyleID="s104"><Data ss:Type="String">padre</Data></Cell>
+    <Cell ss:StyleID="s105"><Data ss:Type="Number">2284535500</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s92"/>
+    <Cell ss:StyleID="s93"><Data ss:Type="String">sin puntos</Data></Cell>
+    <Cell ss:StyleID="s92"/>
+    <Cell ss:StyleID="s92"/>
+    <Cell ss:StyleID="s94"><Data ss:Type="String">dd/mm/aaaa</Data></Cell>
+    <Cell ss:StyleID="s94"><Data ss:Type="String">dd/mm/aaaa</Data></Cell>
+    <Cell ss:StyleID="s95"/>
+    <Cell ss:StyleID="s92"/>
+    <Cell ss:StyleID="s92"/>
+    <Cell ss:StyleID="s96"><Data ss:Type="String">dd/mm/aaaa</Data></Cell>
+    <Cell ss:StyleID="s92"/>
+    <Cell ss:StyleID="s92"/>
+    <Cell ss:StyleID="s92"/>
+    <Cell ss:StyleID="s92"/>
+    <Cell ss:StyleID="s96"><Data ss:Type="String">dd/mm/aaaa</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0"/>
+    <Footer x:Margin="0"/>
+   </PageSetup>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <HorizontalResolution>600</HorizontalResolution>
+    <VerticalResolution>600</VerticalResolution>
+   </Print>
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>2</ActiveRow>
+     <ActiveCol>59</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R3C2</Range>
+   <Type>TextLength</Type>
+   <Min>8</Min>
+   <Max>8</Max>
+   <InputTitle>sin puntos</InputTitle>
+   <ErrorTitle>Introducir 8 numeros sin puntos</ErrorTitle>
+  </DataValidation>
+ </Worksheet>
+ <Worksheet ss:Name="Hoja2">
+  <Table ss:ExpandedColumnCount="7" ss:ExpandedRowCount="48" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultColumnWidth="60">
+   <Column ss:Hidden="1" ss:AutoFitWidth="0" ss:Span="3"/>
+   <Column ss:Index="5" ss:Hidden="1" ss:AutoFitWidth="0" ss:Width="59.25"/>
+   <Column ss:Hidden="1" ss:AutoFitWidth="0" ss:Span="1"/>
+   <Row ss:Height="14.25">
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">Seleccione</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell><Data ss:Type="String">Seleccione</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">CABA</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="27.75">
+    <Cell><Data ss:Type="String">DNI</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">ALMIRANTE BROWN</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell><Data ss:Type="String">Pasaporte</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">AVELLANEDA</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">BERAZATEGUI</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">BERISSO</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Seleccione</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">CAMPANA</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="27.75">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Femenino</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">CARLOS CASARES</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="27.75">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Masculino</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">CORONEL SUAREZ</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">PILAR</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">ENSENADA</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Seleccione</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">ESCOBAR</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="27.75">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Argentina</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">ESTEBAN ECHEVERRIA</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Americana</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">EZEIZA</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="27.75">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Brasilera</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">FLORENCIO VARELA</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="27.75">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Chilena</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">GENERAL RODRIGUEZ</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Colombiana</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">SAN MARTIN</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Ecuatoriana</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">HURLINGHAM</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Española</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">ITUZAINGO</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Italiana</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">JOSE C. PAZ</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Venezolana</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">LA MATANZA</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Otra</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">LA PLATA</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">LANUS</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">LAPRIDA</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="27.75">
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">LOMAS DE ZAMORA</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">LUJAN</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="27.75">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Seleccione</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">MALVINAS ARGENTINAS</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Abandonado</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">MARCOS PAZ</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">En curso</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">MORENO</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Graduado</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">MORON</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Ninguno</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">QUILMES</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="27.75">
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">SAN FERNANDO</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">SAN ISIDRO</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Seleccione</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">SAN MIGUEL</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Soltero</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">TANDIL</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Casado</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">TIGRE</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="27.75">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Concubinato</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">VICENTE LOPEZ</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="14.25">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Separado</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s73"><Data ss:Type="String">ZARATE</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row ss:Height="13.5">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Divorciado</Data></Cell>
+    <Cell ss:Index="5" ss:StyleID="s74"><Data ss:Type="String">Otro</Data><NamedCell
+      ss:Name="Partido"/></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Viudo</Data></Cell>
+   </Row>
+   <Row ss:Index="43">
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Seleccione</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s71"><Data ss:Type="String">No Posee</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Basico</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Intermedio</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Avanzado</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s71"><Data ss:Type="String">Billingüe</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0"/>
+    <Footer x:Margin="0"/>
+   </PageSetup>
+   <TopRowVisible>27</TopRowVisible>
+   <LeftColumnVisible>7</LeftColumnVisible>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>37</ActiveRow>
+     <ActiveCol>10</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Hoja3">
+  <Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultColumnWidth="60">
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0"/>
+    <Footer x:Margin="0"/>
+   </PageSetup>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>
