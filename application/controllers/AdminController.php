@@ -28,9 +28,11 @@ class AdminController extends Zend_Controller_Action {
         $this->view->login_error=false;
         
         if (isset($_POST['email']) && isset($_POST['password'])) {
+            $clave = sha1($_POST['password']);
             
             $mod_user= new Mod_Users();
-            $user=$mod_user->fetchRow("email='{$_POST['email']}' AND password='{$_POST['password']}'");
+            $user=$mod_user->fetchRow("email='{$_POST['email']}' AND password='$clave'");
+            
             if ($user){
                 Tkt_User::setUser($_POST['email'],true);
                 $this->redirect("/admin");
