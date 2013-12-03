@@ -6,17 +6,10 @@ class Tkt_User {
         return isset($_SESSION['USER_EMAIL']);
     }
 
-    public static function setUser($email) {
+    public static function setUser($email, $support=false) {
         $_SESSION['USER_EMAIL'] = $email;
-        $_SESSION['IS_SUPPORT_USER'] = false;
+        $_SESSION['IS_SUPPORT_USER'] = $support;
 
-        $_confini = Common_Config::getInstance();
-        $accounts = explode(";", $_confini->email->support->accounts);
-        foreach ($accounts as $account) {
-            if($account == $email ){
-                $_SESSION['IS_SUPPORT_USER'] = true;
-            }
-        }
     }
 
     public static function unsetUser() {

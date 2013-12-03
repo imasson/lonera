@@ -6,6 +6,11 @@ class PublicController extends Zend_Controller_Action {
         if (!Tkt_User::isvalid()) {
             $this->redirect("/");
         }
+        
+        if( Tkt_User::issupport() ){
+            $this->redirect("/admin");
+        }
+            
     }
 
     public function indexAction() {
@@ -128,7 +133,7 @@ class PublicController extends Zend_Controller_Action {
 
             $transport = new Zend_Mail_Transport_Smtp($_confini->email->smtp->host, $config);
             
-            $accounts = explode(";", $_confini->email->support->accounts);
+            //$accounts = explode(";", $_confini->email->support->accounts);
             
             $mail = new Zend_Mail('UTF-8');
             $mail->setBodyText('New ticket added:  #'.$id_ticket);
@@ -136,9 +141,12 @@ class PublicController extends Zend_Controller_Action {
             $mail->setFrom('buzz.support@avatarla.com', 'Buzz Support');
             $mail->setReplyTo('buzz.support@avatarla.com', 'Buzz Support');
             
-            foreach ($accounts as $account){
-                $mail->addTo($account);
+            $mod_users = new Mod_Users();
+            $users_accounts = $mod_users->fetchAll();            
+            for($users_accounts->rewind(); $users_accounts->valid(); $users_accounts->next()){
+                $mail->addTo( $users_accounts->current()->email );
             }
+            
             $mail->setSubject('TKT - '.Mod_Priority::getPriorityName($tkt->priority).' - '.$tkt->title );
             try{
                 $mail->send($transport);
@@ -222,7 +230,7 @@ class PublicController extends Zend_Controller_Action {
 
             $transport = new Zend_Mail_Transport_Smtp($_confini->email->smtp->host, $config);
             
-            $accounts = explode(";", $_confini->email->support->accounts);
+            //$accounts = explode(";", $_confini->email->support->accounts);
             
             $mail = new Zend_Mail('UTF-8');
             $mail->setBodyText('New comment added [tkt #'.$comment->id_ticket.']: '.$comment->comment);
@@ -230,9 +238,13 @@ class PublicController extends Zend_Controller_Action {
             $mail->setFrom('buzz.support@avatarla.com', 'Buzz Support');
             $mail->setReplyTo('buzz.support@avatarla.com', 'Buzz Support');
             
-            foreach ($accounts as $account){
-                $mail->addTo($account);
+            $mod_users = new Mod_Users();
+            $users_accounts = $mod_users->fetchAll();            
+            for($users_accounts->rewind(); $users_accounts->valid(); $users_accounts->next()){
+                $mail->addTo( $users_accounts->current()->email );
             }
+            
+            
             $mail->setSubject('New comment added [tkt #'.$comment->id_ticket.'] ' );
             try{
                 $mail->send($transport);

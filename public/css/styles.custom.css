@@ -41,3 +41,13 @@ text-decoration: underline;
 
 .width200 {width:200px;}
 .marginLeft10 {margin-left: 10px;}
+
+.panel-primary {
+border-color: #563d7c;
+}
+
+.panel-primary>.panel-heading {
+color: #fff;
+background-color: #563d7c;
+border-color: #563d7c;
+}
