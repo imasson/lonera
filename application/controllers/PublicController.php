@@ -116,11 +116,7 @@ class PublicController extends Zend_Controller_Action {
                 }
                }
             
-            
-            
-            
-            
-            
+          
             $_confini = Common_Config::getInstance();
                 
             $config = array(
