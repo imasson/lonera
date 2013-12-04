@@ -10,7 +10,7 @@ class PublicController extends Zend_Controller_Action {
         if( Tkt_User::issupport() ){
             $this->redirect("/admin");
         }
-            
+         $this->view->user=Tkt_User::getUser();   
     }
 
     public function indexAction() {
@@ -116,11 +116,7 @@ class PublicController extends Zend_Controller_Action {
                 }
                }
             
-            
-            
-            
-            
-            
+          
             $_confini = Common_Config::getInstance();
                 
             $config = array(
