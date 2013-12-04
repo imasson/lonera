@@ -17,6 +17,11 @@ class AdminController extends Zend_Controller_Action {
             
             $this->view->user=Tkt_User::getUser();
         }
+        else{
+            if (Tkt_User::isvalid() && Tkt_User::issupport()) {
+                $this->redirect("/admin");
+            }
+        }
         
         $this->_helper->layout->setLayout('adminlayout');
     }
