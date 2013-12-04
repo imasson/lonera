@@ -39,7 +39,7 @@ class AdminController extends Zend_Controller_Action {
             if ($user) {
                 Tkt_User::setUser($_POST['email'], true);
                 $this->view->user=Tkt_User::getUser();
-                $this->redirect("/admin");
+                $this->redirect("/admin/?tktid=&tktstatus=2&tktpriority=0");
             }
             $this->view->login_error = true;
         }
@@ -183,7 +183,7 @@ class AdminController extends Zend_Controller_Action {
                             $newrow->email=$_POST['email'];
                             $newrow->password=sha1($_POST['password']);
                             $newrow->save();
-                            $this->redirect("/admin");
+                            $this->redirect("/admin/?tktid=&tktstatus=2&tktpriority=0");
                     }
             }
         }
@@ -251,7 +251,7 @@ class AdminController extends Zend_Controller_Action {
             }
         }
 
-        $this->redirect("/admin");
+        $this->redirect("/admin/?tktid=&tktstatus=2&tktpriority=0");
     }
 
 }

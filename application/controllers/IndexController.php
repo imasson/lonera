@@ -11,7 +11,7 @@ class IndexController extends Zend_Controller_Action {
             $this->view->user = Tkt_User::getUser();
 
         if (Tkt_User::issupport()) {
-            $this->redirect("/admin");
+            $this->redirect("/admin/?tktid=&tktstatus=2&tktpriority=0");
         }
     }
 
