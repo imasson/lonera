@@ -7,12 +7,12 @@ class IndexController extends Zend_Controller_Action {
         if (!Tkt_User::isvalid()) {
             $this->view->not_is_valid_user = 'true';
         }
-        
-        if( Tkt_User::issupport() ){
-            $this->redirect("/admin");
+        else
+            $this->view->user = Tkt_User::getUser();
+
+        if (Tkt_User::issupport()) {
+            $this->redirect("/admin/?tktid=&tktstatus=2&tktpriority=0");
         }
-            
-        
     }
 
     public function indexAction() {
@@ -29,7 +29,7 @@ class IndexController extends Zend_Controller_Action {
 
         $this->redirect("/");
     }
-    
+
     public function logoutAction() {
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
@@ -37,6 +37,12 @@ class IndexController extends Zend_Controller_Action {
         Tkt_User::unsetUser();
 
         $this->redirect("/");
+    }
+
+    public function hashAction() {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+        echo sha1($_GET['clave']);
     }
 
 }

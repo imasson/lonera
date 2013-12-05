@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-2">&nbsp;</div>
         <div class="col-md-8" role="main">
-            <form class="form-horizontal" role="form" action="/public/add" method="POST" enctype="multipart/form-data">
+            <form id="form1" class="form-horizontal" role="form" action="/public/add" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="tktTitle" class="col-sm-2 control-label">Title</label>
                     <div class="col-sm-10">
@@ -59,7 +59,7 @@
                 <hr>
                 <div class="form-group pull-right">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save" ></span>&nbsp;Save</button>
+                        <button id="submitbtn" type="submit" class="btn btn-primary" onclick="buttonDisable()"><span class="glyphicon glyphicon-save" ></span>&nbsp;Save</button>
                     </div>
                 </div>
             </form>
@@ -69,6 +69,10 @@
 </div>
 
 <script type="text/javascript">
+    function buttonDisable(){
+        document.getElementById("submitbtn").setAttribute('disabled','disabled');
+        document.getElementById("form1").submit();     
+    }
 $(function(){
    $(":file").filestyle({
        classButton: 'btn btn-default marginLeft10',

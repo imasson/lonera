@@ -4,11 +4,45 @@ class AdminController extends Zend_Controller_Action {
 
     public function init() {
 
-        if (!Tkt_User::isvalid() || !Tkt_User::issupport()) {
-            $this->redirect("/");
-        }
+        $action = $this->getParam("action");
 
+        if ($action != "login") {
+
+            if (!Tkt_User::isvalid()) {
+                $this->redirect("/admin/login");
+            } elseif (!Tkt_User::issupport()) {
+                $this->redirect("/");
+            }
+
+            
+            $this->view->user=Tkt_User::getUser();
+        }
+        else{
+            if (Tkt_User::isvalid() && Tkt_User::issupport()) {
+                $this->redirect("/admin");
+            }
+        }
+        
         $this->_helper->layout->setLayout('adminlayout');
+    }
+
+    public function loginAction() {
+        $this->_helper->layout->disableLayout();
+        $this->view->login_error = false;
+
+        if (isset($_POST['email']) && isset($_POST['password'])) {
+            $clave = sha1($_POST['password']);
+
+            $mod_user = new Mod_Users();
+            $user = $mod_user->fetchRow("email='{$_POST['email']}' AND password='$clave'");
+
+            if ($user) {
+                Tkt_User::setUser($_POST['email'], true);
+                $this->view->user=Tkt_User::getUser();
+                $this->redirect("/admin/?tktid=&tktstatus=2&tktpriority=0");
+            }
+            $this->view->login_error = true;
+        }
     }
 
     public function indexAction() {
@@ -17,7 +51,7 @@ class AdminController extends Zend_Controller_Action {
         $this->view->selected_status_3 = "";
         $this->view->selected_status_4 = "";
         $this->view->selected_status_5 = "";
-
+        
         $this->selected_priority_1 = $this->selected_priority_2 = $this->selected_priority_3 = $this->selected_priority_4 = "";
 
         $where = "true ";
@@ -41,7 +75,7 @@ class AdminController extends Zend_Controller_Action {
         $tickets = $mod_tickets->fetchAll($where);
 
         $this->view->tickets = $tickets;
-        
+
         $mod_helptopic = new Mod_HelpTopic();
         $this->view->helptopics = $mod_helptopic->fetchAll();
     }
@@ -78,8 +112,8 @@ class AdminController extends Zend_Controller_Action {
         $_data['status'] = Mod_Status::getStatusName($status);
         $_data['statusclass'] = Mod_Status::getStatusViewClass($status);
         $_data['statusvalue'] = $status;
-        $_data['attachedlink'] = '/upload/'.$_data['attached'];
-        
+        $_data['attachedlink'] = '/upload/' . $_data['attached'];
+
         $_data['helptopic'] = '';
         if ($helptopic) {
             $_data['helptopic'] = $helptopic->title;
@@ -129,8 +163,30 @@ class AdminController extends Zend_Controller_Action {
             if ($ht)
                 $ht->delete();
         }
-    $this->redirect("/admin/helptopic");
-        
+        $this->redirect("/admin/helptopic");
+    }
+
+    public function adduserAction() {
+        $this->view->user_exists=false;
+        $this->view->pass_mismatch=false;
+        if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwordconfirm'])) {
+            if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordconfirm'])) {
+                $mod_user = new Mod_Users();                
+                $user = $mod_user->fetchRow("email='{$_POST['email']}'");
+                if ($user) {
+                    $this->view->user_exists=true;
+                } elseif (($_POST['password']) != ($_POST['passwordconfirm'])) {
+                        $this->view->pass_mismatch=true;
+                    } else {
+                            $mod_user = new Mod_Users();
+                            $newrow=$mod_user->createRow();
+                            $newrow->email=$_POST['email'];
+                            $newrow->password=sha1($_POST['password']);
+                            $newrow->save();
+                            $this->redirect("/admin/?tktid=&tktstatus=2&tktpriority=0");
+                    }
+            }
+        }
     }
 
     public function savetktAction() {
@@ -144,14 +200,14 @@ class AdminController extends Zend_Controller_Action {
             $tkt = $mod_ticket->fetchRow("id=" . $_POST['editFrmTktId']);
 
             if ($tkt) {
-                    
+
                 $tkt->priority = $_POST['editFrmTktPriority'];
                 $tkt->status = $_POST['editFrmTktStatus'];
                 $tkt->updated_date = date("Y-m-d h:i:s");
                 $tkt->support_user = Tkt_User::getUser();
-                
+
                 $tkt->id_helptopic = $_POST['editFrmTktHelpTopic'];
-                
+
                 $tkt->save();
 
                 if (!empty($_POST['editFrmTktComment'])) {
@@ -195,7 +251,7 @@ class AdminController extends Zend_Controller_Action {
             }
         }
 
-        $this->redirect("/admin");
+        $this->redirect("/admin/?tktid=&tktstatus=2&tktpriority=0");
     }
 
 }

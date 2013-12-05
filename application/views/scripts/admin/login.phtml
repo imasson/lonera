@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" href="#">
+
+        <title>Support Tikets Tool</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/docs.css" rel="stylesheet">
+
+        <!-- Custom styles -->
+        <link href="/css/styles.custom.css" rel="stylesheet">
+
+
+        <!-- Bootstrap core JavaScript
+    ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="/js/jquery-1.10.2.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-md-4"></div>
+         <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Admin Login</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" action="/admin/login" method="POST">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-4 control-label">Email</label>
+                        <div class="col-sm-8">
+                            <input name="email" type="email" class="form-control" id="focusedInput" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-4 control-label">Password</label>
+                        <div class="col-sm-8">
+                            <input name="password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary pull-right">Login</button>
+                        </div>
+                    </div>
+                </form>
+                <? if($this->login_error):?>
+                <div class="alert alert-danger">Login Error</div>
+                <? endif ?>
+            </div>
+        </div>
+        </div>   
+             <div class="col-md-4"></div>    
+</div>
+
+        
+
+</body>
+</html>
