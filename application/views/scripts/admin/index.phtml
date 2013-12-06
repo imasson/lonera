@@ -66,6 +66,7 @@
                         <th>Created</th>
                         <th>Updated</th>
                         <th>User</th>
+                        <th>Support User</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -80,6 +81,7 @@
                             <td><?= $this->tickets->current()->created_date ?></td>
                             <td><?= $this->tickets->current()->updated_date ?></td>
                             <td><?= $this->tickets->current()->created_user ?></td>
+                            <td><?= $this->tickets->current()->support_user ?></td>
                             <td>
                     <center> <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
                         return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp; <center/>
