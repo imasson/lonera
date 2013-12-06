@@ -38,6 +38,19 @@
                                 <option value="<?= Mod_Priority::URGENT ?>" <?= $this->selected_priority_4 ?>>URGENT</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="tkthelptopic">HelpTopic</label>
+                            <select name="tkthelptopic" id="tkthelptopic" class="form-control">
+                                <option value="0">-- Ticket Help Topic --</option>
+                                <? for ($this->helptopics->rewind(); $this->helptopics->valid(); $this->helptopics->next()): ?>
+                                        <option value="<?= $this->helptopics->current()->id ?>"   
+                                            <? if($this->selectHelpTopic == $this->helptopics->current()->id): ?>
+                                            selected="selected"
+                                            <?endif?>
+                                            ><?= $this->helptopics->current()->title ?></option>
+                                <? endfor; ?>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-primary">Apply</button>
                     </form>
                 </div>
@@ -78,19 +91,35 @@
                     </tbody>
             </table>
             <br/>
-            <!-- PAGINADO 
+            <!-- PAGINADO -->
             <div style="text-align: center">
                 <ul class="pagination">
-                    <li class="disabled"><a href="#">&laquo;</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
+                    <li <? if($this->selectedpage==1):?>
+                        class="disabled"
+                        <?endif?>
+                        ><a href="<?= $this->uri?>page=<?=1?>">&laquo; First</a></li>
+                    
+                    <li <? if($this->selectedpage==1):?>
+                        class="disabled"
+                        <?endif?>
+                        ><a href="<?= $this->uri?>page=<?=$this->selectedpage-1?>">&LT; Previous</a></li>
+                    
+                    <li class="disabled"><a href="#"> Page <?=$this->selectedpage?> of <?=$this->cantpaginas?></a></li>
+                    
+                    <li <? if($this->selectedpage==$this->cantpaginas):?>
+                        class="disabled"
+                        <?endif?>
+                        ><a href="<?= $this->uri?>page=<?=$this->selectedpage+1?>">&GT; Next</a></li>
+                    
+                    <li <? if($this->selectedpage==$this->cantpaginas):?>
+                        class="disabled"
+                        <?endif?>
+                        ><a href="<?= $this->uri?>page=<?=$this->cantpaginas?>">&raquo; Last</a></li>
+                    
+                    
                 </ul>
             </div>
-            -->
+            
 
 
         </div>
@@ -197,7 +226,7 @@
 <script type="text/javascript">
 
     function editTkt(id) {
-
+        
         var uri = '/admin/gettkt/id/' + id;
         $.post(uri, {}, function(_data) {
 
