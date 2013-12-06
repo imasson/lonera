@@ -92,13 +92,31 @@ class AdminController extends Zend_Controller_Action {
         
         $mod_tickets = new Mod_Ticket();
         $countitems= $mod_tickets->getCount($where);
+        /*PAGINADO*/
         $this->view->cantpaginas = ceil($countitems/10);
         //$tickets = $mod_tickets->fetchAll($where);
         $tickets = $mod_tickets->getTktLimit($where, 10,($this->view->selectedpage-1)*10 );
         $this->view->tickets = $tickets;
-
-        $mod_helptopic = new Mod_HelpTopic();
         
+        
+        if ($this->view->selectedpage == 1){
+        $this->view->prev="#";
+        $this->view->first="#";
+        }  else{
+            $this->view->prev=$uri."&page=".($this->view->selectedpage-1);
+            $this->view->first=$uri."&page=1";
+        }
+        
+        if ($this->view->selectedpage == $this->view->cantpaginas){
+        $this->view->next="#";
+        $this->view->last="#";
+        }else{
+            $this->view->next=$uri."&page=".($this->view->selectedpage+1);
+            $this->view->last=$uri."&page=".$this->view->cantpaginas;
+        }
+        /*FIN PAGINADO*/
+        
+        $mod_helptopic = new Mod_HelpTopic();
         
         if( isset($_GET['tkthelptopic']) )
             $this->view->selectHelpTopic = $_GET['tkthelptopic'];

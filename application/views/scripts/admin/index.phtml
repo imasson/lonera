@@ -97,31 +97,26 @@
                     <li <? if($this->selectedpage==1):?>
                         class="disabled"
                         <?endif?>
-                        ><a href="<?= $this->uri?>page=<?=1?>">&laquo; First</a></li>
+                        ><a href="<?=$this->first?>">&laquo; First</a></li>
                     
                     <li <? if($this->selectedpage==1):?>
                         class="disabled"
                         <?endif?>
-                        ><a href="<?= $this->uri?>page=<?=$this->selectedpage-1?>">&LT; Previous</a></li>
+                        ><a href="<?= $this->prev?>">&LT; Previous</a></li>
                     
                     <li class="disabled"><a href="#"> Page <?=$this->selectedpage?> of <?=$this->cantpaginas?></a></li>
                     
                     <li <? if($this->selectedpage==$this->cantpaginas):?>
                         class="disabled"
                         <?endif?>
-                        ><a href="<?= $this->uri?>page=<?=$this->selectedpage+1?>">&GT; Next</a></li>
+                        ><a href="<?=$this->next?>">&GT; Next</a></li>
                     
                     <li <? if($this->selectedpage==$this->cantpaginas):?>
                         class="disabled"
                         <?endif?>
-                        ><a href="<?= $this->uri?>page=<?=$this->cantpaginas?>">&raquo; Last</a></li>
-                    
-                    
+                        ><a href="<?= $this->last?>">&raquo; Last</a></li>
                 </ul>
             </div>
-            
-
-
         </div>
     </div>
 </div>
