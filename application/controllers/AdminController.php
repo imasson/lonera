@@ -39,7 +39,7 @@ class AdminController extends Zend_Controller_Action {
             if ($user) {
                 Tkt_User::setUser($_POST['email'], true);
                 $this->view->user=Tkt_User::getUser();
-                $this->redirect("/admin/?tktid=&tktstatus=2&tktpriority=0");
+                $this->redirect("/admin/?tktid=&tktstatus=1&tktpriority=0");
             }
             $this->view->login_error = true;
         }
@@ -53,33 +53,90 @@ class AdminController extends Zend_Controller_Action {
         $this->view->selected_status_5 = "";
         
         $this->selected_priority_1 = $this->selected_priority_2 = $this->selected_priority_3 = $this->selected_priority_4 = "";
-
+        
+        $uri="/admin?";
+        
+        
         $where = "true ";
 
-        if (isset($_GET['tktid']) && $_GET['tktid'] > 0)
+        if (isset($_GET['tktid']) && $_GET['tktid'] > 0){
             $where .= ' AND id = ' . $_GET['tktid'];
-
+        $uri=$uri.'tktid='.$_GET['tktid']."&";
+            
+        }
         if (isset($_GET['tktstatus']) && $_GET['tktstatus'] > 0) {
             $where .= ' AND status = ' . $_GET['tktstatus'];
             $nombre = "selected_status_" . $_GET['tktstatus'];
             $this->view->$nombre = 'selected="selected"';
+            $uri=$uri.'tktstatus='.$_GET['tktstatus']."&";
         }
 
         if (isset($_GET['tktpriority']) && $_GET['tktpriority'] > 0) {
             $where .= ' AND priority = ' . $_GET['tktpriority'];
             $nombre = "selected_priority_" . $_GET['tktpriority'];
             $this->view->$nombre = 'selected="selected"';
+            $uri=$uri.'tktpriority='.$_GET['tktpriority']."&";
         }
-
+        
+        if (isset($_GET['tkthelptopic']) && $_GET['tkthelptopic'] > 0){
+            $where .= ' AND id_helptopic = ' . $_GET['tkthelptopic'];
+            $uri=$uri.'tkthelptopic='.$_GET['tkthelptopic'];
+        }
+        
+        $this->view->selectedpage = 1;
+        if (isset($_GET['page']) && $_GET['page'] > 0){
+            $this->view->selectedpage = $_GET['page'];
+   
+        }
+        
+        
         $mod_tickets = new Mod_Ticket();
-        $tickets = $mod_tickets->fetchAll($where);
-
+        $countitems= $mod_tickets->getCount($where);
+        /*PAGINADO*/
+        $this->view->cantpaginas = ceil($countitems/10);
+        //$tickets = $mod_tickets->fetchAll($where);
+        $tickets = $mod_tickets->getTktLimit($where, 10,($this->view->selectedpage-1)*10 );
         $this->view->tickets = $tickets;
-
+        
+        
+        if ($this->view->selectedpage == 1){
+        $this->view->prev="#";
+        $this->view->first="#";
+        }  else{
+            $this->view->prev=$uri."&page=".($this->view->selectedpage-1);
+            $this->view->first=$uri."&page=1";
+        }
+        
+        if ($this->view->selectedpage == $this->view->cantpaginas){
+        $this->view->next="#";
+        $this->view->last="#";
+        }else{
+            $this->view->next=$uri."&page=".($this->view->selectedpage+1);
+            $this->view->last=$uri."&page=".$this->view->cantpaginas;
+        }
+        /*FIN PAGINADO*/
+        
         $mod_helptopic = new Mod_HelpTopic();
-        $this->view->helptopics = $mod_helptopic->fetchAll();
+        
+        if( isset($_GET['tkthelptopic']) )
+            $this->view->selectHelpTopic = $_GET['tkthelptopic'];
+        else {
+            $this->view->selectHelpTopic = 0;
+        }
+        $this->view->uri=$uri;
+        $this->view->helptopics = $mod_helptopic->fetchAll();//$helptopics_options;
+        
     }
-
+    
+    
+    public function gethelptopicAction(){
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+        
+        
+    }
+    
+    
     public function logoutAction() {
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
@@ -160,8 +217,16 @@ class AdminController extends Zend_Controller_Action {
         if (isset($_GET['id']) && $_GET['id'] > 0) {
             $mod_helptopic = new Mod_HelpTopic();
             $ht = $mod_helptopic->fetchRow("id=" . $_GET['id']);
-            if ($ht)
-                $ht->delete();
+            if ($ht){
+                try{
+                    $ht->delete();
+                    }
+                    catch(Exception $e){
+                        echo $e->getMessage();
+                        exit;
+                    }
+                
+            }
         }
         $this->redirect("/admin/helptopic");
     }
@@ -183,7 +248,7 @@ class AdminController extends Zend_Controller_Action {
                             $newrow->email=$_POST['email'];
                             $newrow->password=sha1($_POST['password']);
                             $newrow->save();
-                            $this->redirect("/admin/?tktid=&tktstatus=2&tktpriority=0");
+                            $this->redirect("/admin/?tktid=&tktstatus=1&tktpriority=0");
                     }
             }
         }
@@ -251,9 +316,37 @@ class AdminController extends Zend_Controller_Action {
             }
         }
 
-        $this->redirect("/admin/?tktid=&tktstatus=2&tktpriority=0");
+        $this->redirect("/admin/?tktid=&tktstatus=1&tktpriority=0");
     }
 
+   /* public function tktsautoAction(){
+        
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+        
+        $mod_tickets = new Mod_Ticket();
+        
+        for($i=0; $i <100; $i++){
+            
+            $tkt = $mod_tickets->createRow();
+            
+            $tkt->priority = rand(1, 4);
+            $tkt->status = rand(1,5);
+            
+            $tkt->title         = "Ticket de prueba - $i";
+            $tkt->description   = "Ticket de prueba - $i";
+            $tkt->id_helptopic  = 1;
+            
+            $tkt->created_date  = date("Y-m-d h:i:s");
+            $tkt->updated_date  = date("Y-m-d h:i:s");
+            $tkt->created_user  = Tkt_User::getUser();
+            
+            $tkt->save();
+            
+        }
+        
+    }*/
+    
 }
 
 ?>
