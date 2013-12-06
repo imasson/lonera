@@ -1,6 +1,7 @@
 <?php
 
 class AdminController extends Zend_Controller_Action {
+protected $_uri = '/';
 
     public function init() {
 
@@ -61,32 +62,34 @@ class AdminController extends Zend_Controller_Action {
 
         if (isset($_GET['tktid']) && $_GET['tktid'] > 0){
             $where .= ' AND id = ' . $_GET['tktid'];
-        $uri=$uri.'tktid='.$_GET['tktid']."&";
+        $uri=$uri.'tktid='.$_GET['tktid'];
             
         }
         if (isset($_GET['tktstatus']) && $_GET['tktstatus'] > 0) {
             $where .= ' AND status = ' . $_GET['tktstatus'];
             $nombre = "selected_status_" . $_GET['tktstatus'];
             $this->view->$nombre = 'selected="selected"';
-            $uri=$uri.'tktstatus='.$_GET['tktstatus']."&";
+            $uri=$uri.'&tktstatus='.$_GET['tktstatus'];
         }
 
         if (isset($_GET['tktpriority']) && $_GET['tktpriority'] > 0) {
             $where .= ' AND priority = ' . $_GET['tktpriority'];
             $nombre = "selected_priority_" . $_GET['tktpriority'];
             $this->view->$nombre = 'selected="selected"';
-            $uri=$uri.'tktpriority='.$_GET['tktpriority']."&";
+            $uri=$uri.'&tktpriority='.$_GET['tktpriority'];
         }
         
         if (isset($_GET['tkthelptopic']) && $_GET['tkthelptopic'] > 0){
             $where .= ' AND id_helptopic = ' . $_GET['tkthelptopic'];
-            $uri=$uri.'tkthelptopic='.$_GET['tkthelptopic'];
+            $uri=$uri.'&tkthelptopic='.$_GET['tkthelptopic'];
         }
+        
+        $uri_pager=$uri;
         
         $this->view->selectedpage = 1;
         if (isset($_GET['page']) && $_GET['page'] > 0){
             $this->view->selectedpage = $_GET['page'];
-   
+            $uri=$uri.'&page='.$_GET['page'];
         }
         
         
@@ -95,7 +98,7 @@ class AdminController extends Zend_Controller_Action {
         /*PAGINADO*/
         $this->view->cantpaginas = ceil($countitems/10);
         //$tickets = $mod_tickets->fetchAll($where);
-        $tickets = $mod_tickets->getTktLimit($where, 10,($this->view->selectedpage-1)*10 );
+        $tickets = $mod_tickets->getTktLimitOrder($where, 10,($this->view->selectedpage-1)*10,"created_date DESC" );
         $this->view->tickets = $tickets;
         
         
@@ -103,18 +106,22 @@ class AdminController extends Zend_Controller_Action {
         $this->view->prev="#";
         $this->view->first="#";
         }  else{
-            $this->view->prev=$uri."&page=".($this->view->selectedpage-1);
-            $this->view->first=$uri."&page=1";
+            $this->view->prev=$uri_pager."&page=".($this->view->selectedpage-1);
+            $this->view->first=$uri_pager."&page=1";
         }
         
         if ($this->view->selectedpage == $this->view->cantpaginas){
         $this->view->next="#";
         $this->view->last="#";
         }else{
-            $this->view->next=$uri."&page=".($this->view->selectedpage+1);
-            $this->view->last=$uri."&page=".$this->view->cantpaginas;
+            $this->view->next=$uri_pager."&page=".($this->view->selectedpage+1);
+            $this->view->last=$uri_pager."&page=".$this->view->cantpaginas;
         }
+        
+        
         /*FIN PAGINADO*/
+        
+        
         
         $mod_helptopic = new Mod_HelpTopic();
         
@@ -315,8 +322,10 @@ class AdminController extends Zend_Controller_Action {
                 }
             }
         }
-
-        $this->redirect("/admin/?tktid=&tktstatus=1&tktpriority=0");
+        
+        //$this->redirect("/admin/?tktid=&tktstatus=1&tktpriority=0");
+       
+        $this->redirect($_SERVER['HTTP_REFERER']);
     }
 
    /* public function tktsautoAction(){

@@ -20,11 +20,21 @@ class Mod_Ticket extends Zend_Db_Table_Abstract {
                     ->from($this->_name)
                     ->where($where)
                     ->limit($count,$offset)
+                     
                 ;
         return $this->fetchAll($sql);
         
     }
-    
+    public function getTktLimitOrder($where,$count,$offset,$order){
+        $sql = $this->select()
+                    ->from($this->_name)
+                    ->where($where)
+                    ->limit($count,$offset)
+                    ->order($order)
+                ;
+        return $this->fetchAll($sql);
+        
+    }
     
     
     public function getCount($where)
