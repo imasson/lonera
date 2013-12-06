@@ -35,3 +35,4 @@ Zend_Session::start();
 
 $application->bootstrap()
             ->run();
+?>
