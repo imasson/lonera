@@ -132,8 +132,8 @@ class PublicController extends Zend_Controller_Action {
             //$accounts = explode(";", $_confini->email->support->accounts);
             
             $mail = new Zend_Mail('UTF-8');
-            $mail->setBodyText('New ticket added:  #'.$id_ticket);
-            $mail->setBodyHtml('<h1>New ticket added:  #'.$id_ticket."</h1>"."<h3>By: ". Tkt_User::getUser()."</h3>".  nl2br($tkt->description));
+            $mail->setBodyText('New ticket added:  #'.$id_ticket." Subject:".$tkt->title);
+            $mail->setBodyHtml('<h1>New ticket added:  #'.$id_ticket."</h1>"."<h2>"."Subject: ".$tkt->title."</h2>"."<h3>By: ". Tkt_User::getUser()."</h3>".  nl2br($tkt->description));
             $mail->setFrom('buzz.support@avatarla.com', 'Buzz Support');
             $mail->setReplyTo('buzz.support@avatarla.com', 'Buzz Support');
             
@@ -214,6 +214,9 @@ class PublicController extends Zend_Controller_Action {
             
             $comment->save();
             
+            $mod_tkt=new Mod_Ticket();
+            $subject=$mod_tkt->fetchRow("id=$comment->id_ticket");
+           
             $_confini = Common_Config::getInstance();
                 
             $config = array(
@@ -229,8 +232,11 @@ class PublicController extends Zend_Controller_Action {
             //$accounts = explode(";", $_confini->email->support->accounts);
             
             $mail = new Zend_Mail('UTF-8');
-            $mail->setBodyText('New comment added [tkt #'.$comment->id_ticket.']: '.$comment->comment);
-            $mail->setBodyHtml('<h1>New comment added to ticket:  #'.$comment->id_ticket."</h1>"."<h3>By: ". Tkt_User::getUser()."</h3>".  nl2br($comment->comment));
+            
+           
+            
+            $mail->setBodyText('New comment added [tkt #'.$comment->id_ticket.']: '.$comment->comment." Subject: ".$subject->title);
+            $mail->setBodyHtml('<h1>New comment added to ticket:  #'.$comment->id_ticket."</h1>"."<h2>Subject: ". $subject->title."</h2>"."<h3>By: ". Tkt_User::getUser()."</h3>".  nl2br($comment->comment));
             $mail->setFrom('buzz.support@avatarla.com', 'Buzz Support');
             $mail->setReplyTo('buzz.support@avatarla.com', 'Buzz Support');
             
