@@ -149,7 +149,7 @@
                     <p id="editTktDescription">Alerts don't have default classes, only base and modifier classes. A default gray alert doesn't make too much sense, so you're required to specify a type via contextual class. Choose from success, info, warning, or danger.</p>
 
                 </div>
-
+                
                 <strong>Support</strong>
                 <div>&nbsp;</div>
                 <form role="form" class="form-horizontal" action="/admin/savetkt" method="POST" enctype="multipart/form-data">
@@ -167,6 +167,7 @@
                                 <option value="<?= Mod_Status::REJECTED ?>" >REJECTED</option>
                             </select>
                         </div>
+                       
                     </div>
                     <div class="form-group">
                         <label for="editFrmTktPriority" class="col-sm-2 control-label">Priority</label>
@@ -222,7 +223,12 @@
 </div><!-- /.modal -->
 
 <script type="text/javascript">
-
+    
+$( document ).ready(function() {
+    if ("<?= $this->autoEdit ?>" == '1'){
+        editTkt("<?= $this->id ?>")
+    }
+});
     function editTkt(id) {
         
         var uri = '/admin/gettkt/id/' + id;

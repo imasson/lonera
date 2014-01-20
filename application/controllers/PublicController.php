@@ -133,7 +133,7 @@ class PublicController extends Zend_Controller_Action {
             
             $mail = new Zend_Mail('UTF-8');
             $mail->setBodyText('New ticket added:  #'.$id_ticket." Subject:".$tkt->title);
-            $mail->setBodyHtml('<h1>New ticket added:  #'.$id_ticket."</h1>"."<h2>"."Subject: ".$tkt->title."</h2>"."<h3>By: ". Tkt_User::getUser()."</h3>".  nl2br($tkt->description));
+            $mail->setBodyHtml('<h1>New ticket added:  #'.$id_ticket."</h1>"."<h2>"."Subject: ".$tkt->title."</h2>"."<a href=http://tkttool.emmett.avatarlahs.com.ar/admin/?tktid=".$id_ticket."&autoedit=1> <h2>Click to edit ticket</h2></a>"."<h3>By: ". Tkt_User::getUser()."</h3>".  nl2br($tkt->description));
             $mail->setFrom('buzz.support@avatarla.com', 'Buzz Support');
             $mail->setReplyTo('buzz.support@avatarla.com', 'Buzz Support');
             

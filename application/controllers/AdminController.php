@@ -2,7 +2,6 @@
 
 class AdminController extends Zend_Controller_Action {
 
-
     public function init() {
 
         $action = $this->getParam("action");
@@ -15,15 +14,14 @@ class AdminController extends Zend_Controller_Action {
                 $this->redirect("/");
             }
 
-            
-            $this->view->user=Tkt_User::getUser();
-        }
-        else{
+
+            $this->view->user = Tkt_User::getUser();
+        } else {
             if (Tkt_User::isvalid() && Tkt_User::issupport()) {
                 $this->redirect("/admin");
             }
         }
-        
+
         $this->_helper->layout->setLayout('adminlayout');
     }
 
@@ -39,7 +37,7 @@ class AdminController extends Zend_Controller_Action {
 
             if ($user) {
                 Tkt_User::setUser($_POST['email'], true);
-                $this->view->user=Tkt_User::getUser();
+                $this->view->user = Tkt_User::getUser();
                 $this->redirect("/admin/?tktid=&tktstatus=1&tktpriority=0");
             }
             $this->view->login_error = true;
@@ -52,98 +50,95 @@ class AdminController extends Zend_Controller_Action {
         $this->view->selected_status_3 = "";
         $this->view->selected_status_4 = "";
         $this->view->selected_status_5 = "";
-        
+
         $this->selected_priority_1 = $this->selected_priority_2 = $this->selected_priority_3 = $this->selected_priority_4 = "";
-        
-        $uri="/admin?";
-        
-        
+        $this->view->autoEdit = false;
+        $uri = "/admin?";
         $where = "true ";
 
-        if (isset($_GET['tktid']) && $_GET['tktid'] > 0){
+        if (isset($_GET['tktid']) && $_GET['tktid'] > 0) {
             $where .= ' AND id = ' . $_GET['tktid'];
-        $uri=$uri.'tktid='.$_GET['tktid'];
-            
+            $uri = $uri . 'tktid=' . $_GET['tktid'];
+            if (isset($_GET['autoedit']) ) {
+                $this->view->id = $_GET['tktid'];
+                $this->view->autoEdit = true;
+            }
         }
         if (isset($_GET['tktstatus']) && $_GET['tktstatus'] > 0) {
             $where .= ' AND status = ' . $_GET['tktstatus'];
             $nombre = "selected_status_" . $_GET['tktstatus'];
             $this->view->$nombre = 'selected="selected"';
-            $uri=$uri.'&tktstatus='.$_GET['tktstatus'];
+            $uri = $uri . '&tktstatus=' . $_GET['tktstatus'];
         }
 
         if (isset($_GET['tktpriority']) && $_GET['tktpriority'] > 0) {
             $where .= ' AND priority = ' . $_GET['tktpriority'];
             $nombre = "selected_priority_" . $_GET['tktpriority'];
             $this->view->$nombre = 'selected="selected"';
-            $uri=$uri.'&tktpriority='.$_GET['tktpriority'];
+            $uri = $uri . '&tktpriority=' . $_GET['tktpriority'];
         }
-        
-        if (isset($_GET['tkthelptopic']) && $_GET['tkthelptopic'] > 0){
+
+        if (isset($_GET['tkthelptopic']) && $_GET['tkthelptopic'] > 0) {
             $where .= ' AND id_helptopic = ' . $_GET['tkthelptopic'];
-            $uri=$uri.'&tkthelptopic='.$_GET['tkthelptopic'];
+            $uri = $uri . '&tkthelptopic=' . $_GET['tkthelptopic'];
         }
-        
-        $uri_pager=$uri;
-        
+
+        $uri_pager = $uri;
+
         $this->view->selectedpage = 1;
-        if (isset($_GET['page']) && $_GET['page'] > 0){
+        if (isset($_GET['page']) && $_GET['page'] > 0) {
             $this->view->selectedpage = $_GET['page'];
-            $uri=$uri.'&page='.$_GET['page'];
+            $uri = $uri . '&page=' . $_GET['page'];
         }
-        
-        
+
+
         $mod_tickets = new Mod_Ticket();
-        $countitems= $mod_tickets->getCount($where);
-        /*PAGINADO*/
-        $this->view->cantpaginas = ceil($countitems/10);
+        $countitems = $mod_tickets->getCount($where);
+        /* PAGINADO */
+        $this->view->cantpaginas = ceil($countitems / 10);
         //$tickets = $mod_tickets->fetchAll($where);
-        $tickets = $mod_tickets->getTktLimitOrder($where, 10,($this->view->selectedpage-1)*10,"created_date DESC" );
+        $tickets = $mod_tickets->getTktLimitOrder($where, 10, ($this->view->selectedpage - 1) * 10, "created_date DESC");
         $this->view->tickets = $tickets;
-        
-        
-        if ($this->view->selectedpage == 1){
-        $this->view->prev="#";
-        $this->view->first="#";
-        }  else{
-            $this->view->prev=$uri_pager."&page=".($this->view->selectedpage-1);
-            $this->view->first=$uri_pager."&page=1";
+
+
+        if ($this->view->selectedpage == 1) {
+            $this->view->prev = "#";
+            $this->view->first = "#";
+        } else {
+            $this->view->prev = $uri_pager . "&page=" . ($this->view->selectedpage - 1);
+            $this->view->first = $uri_pager . "&page=1";
         }
-        
-        if ($this->view->selectedpage == $this->view->cantpaginas){
-        $this->view->next="#";
-        $this->view->last="#";
-        }else{
-            $this->view->next=$uri_pager."&page=".($this->view->selectedpage+1);
-            $this->view->last=$uri_pager."&page=".$this->view->cantpaginas;
+
+        if ($this->view->selectedpage == $this->view->cantpaginas) {
+            $this->view->next = "#";
+            $this->view->last = "#";
+        } else {
+            $this->view->next = $uri_pager . "&page=" . ($this->view->selectedpage + 1);
+            $this->view->last = $uri_pager . "&page=" . $this->view->cantpaginas;
         }
-        
-        
-        /*FIN PAGINADO*/
-        
-        
-        
+
+
+        /* FIN PAGINADO */
+
+
+
         $mod_helptopic = new Mod_HelpTopic();
-        
-        if( isset($_GET['tkthelptopic']) )
+
+        if (isset($_GET['tkthelptopic']))
             $this->view->selectHelpTopic = $_GET['tkthelptopic'];
         else {
             $this->view->selectHelpTopic = 0;
         }
-        $this->view->uri=$uri;
-        $this->view->helptopics = $mod_helptopic->fetchAll();//$helptopics_options;
-        
+
+        $this->view->uri = $uri;
+        $this->view->helptopics = $mod_helptopic->fetchAll(); //$helptopics_options;
     }
-    
-    
-    public function gethelptopicAction(){
+
+    public function gethelptopicAction() {
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
-        
-        
     }
-    
-    
+
     public function logoutAction() {
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
@@ -224,39 +219,37 @@ class AdminController extends Zend_Controller_Action {
         if (isset($_GET['id']) && $_GET['id'] > 0) {
             $mod_helptopic = new Mod_HelpTopic();
             $ht = $mod_helptopic->fetchRow("id=" . $_GET['id']);
-            if ($ht){
-                try{
+            if ($ht) {
+                try {
                     $ht->delete();
-                    }
-                    catch(Exception $e){
-                        echo $e->getMessage();
-                        exit;
-                    }
-                
+                } catch (Exception $e) {
+                    echo $e->getMessage();
+                    exit;
+                }
             }
         }
         $this->redirect("/admin/helptopic");
     }
 
     public function adduserAction() {
-        $this->view->user_exists=false;
-        $this->view->pass_mismatch=false;
+        $this->view->user_exists = false;
+        $this->view->pass_mismatch = false;
         if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwordconfirm'])) {
             if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordconfirm'])) {
-                $mod_user = new Mod_Users();                
+                $mod_user = new Mod_Users();
                 $user = $mod_user->fetchRow("email='{$_POST['email']}'");
                 if ($user) {
-                    $this->view->user_exists=true;
+                    $this->view->user_exists = true;
                 } elseif (($_POST['password']) != ($_POST['passwordconfirm'])) {
-                        $this->view->pass_mismatch=true;
-                    } else {
-                            $mod_user = new Mod_Users();
-                            $newrow=$mod_user->createRow();
-                            $newrow->email=$_POST['email'];
-                            $newrow->password=sha1($_POST['password']);
-                            $newrow->save();
-                            $this->redirect("/admin/?tktid=&tktstatus=1&tktpriority=0");
-                    }
+                    $this->view->pass_mismatch = true;
+                } else {
+                    $mod_user = new Mod_Users();
+                    $newrow = $mod_user->createRow();
+                    $newrow->email = $_POST['email'];
+                    $newrow->password = sha1($_POST['password']);
+                    $newrow->save();
+                    $this->redirect("/admin/?tktid=&tktstatus=1&tktpriority=0");
+                }
             }
         }
     }
@@ -322,40 +315,39 @@ class AdminController extends Zend_Controller_Action {
                 }
             }
         }
-        
+
         //$this->redirect("/admin/?tktid=&tktstatus=1&tktpriority=0");
-       
+
         $this->redirect($_SERVER['HTTP_REFERER']);
     }
 
-   /* public function tktsautoAction(){
-        
-        $this->_helper->viewRenderer->setNoRender();
-        $this->_helper->layout->disableLayout();
-        
-        $mod_tickets = new Mod_Ticket();
-        
-        for($i=0; $i <100; $i++){
-            
-            $tkt = $mod_tickets->createRow();
-            
-            $tkt->priority = rand(1, 4);
-            $tkt->status = rand(1,5);
-            
-            $tkt->title         = "Ticket de prueba - $i";
-            $tkt->description   = "Ticket de prueba - $i";
-            $tkt->id_helptopic  = 1;
-            
-            $tkt->created_date  = date("Y-m-d h:i:s");
-            $tkt->updated_date  = date("Y-m-d h:i:s");
-            $tkt->created_user  = Tkt_User::getUser();
-            
-            $tkt->save();
-            
-        }
-        
-    }*/
-    
+    /* public function tktsautoAction(){
+
+      $this->_helper->viewRenderer->setNoRender();
+      $this->_helper->layout->disableLayout();
+
+      $mod_tickets = new Mod_Ticket();
+
+      for($i=0; $i <100; $i++){
+
+      $tkt = $mod_tickets->createRow();
+
+      $tkt->priority = rand(1, 4);
+      $tkt->status = rand(1,5);
+
+      $tkt->title         = "Ticket de prueba - $i";
+      $tkt->description   = "Ticket de prueba - $i";
+      $tkt->id_helptopic  = 1;
+
+      $tkt->created_date  = date("Y-m-d h:i:s");
+      $tkt->updated_date  = date("Y-m-d h:i:s");
+      $tkt->created_user  = Tkt_User::getUser();
+
+      $tkt->save();
+
+      }
+
+      } */
 }
 
 ?>
