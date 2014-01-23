@@ -120,7 +120,9 @@
                     <h4 id="editTktTitle" >No default class</h4>
                     <h6 id="editTktHelptopic" style="font-weight: bold"></h6>
                     <p><span id="editTktDate"></span>&nbsp;&nbsp;&nbsp;&nbsp;Priority:&nbsp;<strong><span id="editTktPriority">URGENT</span></strong>&nbsp;&nbsp;&nbsp;&nbsp;Status: <span class="label" id="editTktStatus">WAITING</span></p>
-                    <p id="editTktAttached"></p>
+                    <div id="editTktAttached">
+                    <!--<p id="editTktAttached"></p>-->
+                    </div>
                     <hr/>
                     <p id="editTktDescription">Alerts don't have default classes, only base and modifier classes. A default gray alert doesn't make too much sense, so you're required to specify a type via contextual class. Choose from success, info, warning, or danger.</p>
 
@@ -135,6 +137,17 @@
                         <div class="col-sm-10">
                             <textarea class="form-control" id="editFrmTktComment" name="editFrmTktComment" rows="3" ></textarea>
                         </div>
+                    </div>
+
+                    <div id="fileupload">
+
+                        <div class="form-group" id="fileform1">
+                            <label for="inputfile1" class="col-sm-2 control-label">Upload: </label>
+                            <div class="col-sm-10">
+                                <input id="inputfile1" name="tktfile1" type="file" class="filestyle" >
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="form-group">
@@ -164,24 +177,88 @@
         document.getElementById("form1").submit();     
     }
     
+    function setFileStyle(){
+        $(":file").filestyle({
+            classButton: 'btn btn-default marginLeft10',
+            classIcon: 'glyphicon glyphicon-folder-open',
+            classInput: 'form-control width200 pull-left'
+        });
+    }
+    
+    $(document).ready(setFileStyle());
+    
+    var last="1";
+    var data;
+    function addNewFile(){
+        if( $("#inputfile"+last).val() != ""){
+            
+            var div=document.createElement("div");
+            $(div).attr("class","form-group");
+            $(div).attr("id","fileform"+(parseInt(last)+1));
+        
+            var input=document.createElement("input");
+        
+            $(input).attr("id","inputfile"+(parseInt(last)+1));
+            $(input).attr("name","tktfile"+(parseInt(last)+1));
+            $(input).attr("type","file");
+            $(input).attr("value","");
+            $(input).attr("class","filestyle");
+        
+            var label=document.createElement("label");
+            $(label).attr("class","col-sm-2 control-label");
+            $(label).attr("for","tktfile"+(parseInt(last)+1))
+            $(label).html("");
+        
+            var div2=document.createElement("div");
+            $(div2).attr("class","col-sm-10");
+        
+        
+            $(div).append(label);
+            $(div2).append(input);
+            $(div).append(div2);
+        
+        
+            $( "#fileupload" ).append(div);
+            setFileStyle();
+        
+        
+            $( "#inputfile"+(parseInt(last)+1) ).change(function(){addNewFile()});
+            last++;
+        
+        }
+        
+    }
+    
+    
+    $( "#inputfile1" ).change(function(){addNewFile()});
+    
+    
+    
     function editTkt(id) {
 
         var uri = '/public/gettkt/id/' + id;
         $.post(uri, {}, function(_data) {
-
+           
             console.log(_data);
 
                                             
-            if (_data.attached!=null){
+            if (_data.attachedlink!=null){
+                $("#editTktAttached").html("");
+                for(var i=0; i < _data.attachedlink.length; i++){
+                    
+                    var link=document.createElement("a");
+                    $(link).attr("href","/upload/"+_data.attachedlink[i]);
+                    $(link).attr("target","_blank");
                 
-                var link=document.createElement("a");
-                $(link).attr("href",_data.attachedlink);
-                $(link).attr("target","_blank");
-                var fileicon=document.createElement("i");
-                $(fileicon).addClass("glyphicon glyphicon-file");
-                $(link).append(fileicon);
-                $(link).append(_data.attached);
-                $("#editTktAttached").html(link);
+                    var fileicon=document.createElement("i");
+                    $(fileicon).addClass("glyphicon glyphicon-file");
+                    $(link).append(fileicon);
+                    $(link).append(_data.attachedlink[i]);
+                    
+                    var space=document.createElement("p");
+                    $(space).html(link);
+                    $("#editTktAttached").append(space);
+                }
             }else{
                 $("#editTktAttached").html("");
             }
