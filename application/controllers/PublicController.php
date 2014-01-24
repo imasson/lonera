@@ -217,7 +217,7 @@ class PublicController extends Zend_Controller_Action {
             $mod_tkt_files = new Mod_Ticket();
             $tkt_f = $mod_tkt_files->fetchRow("id=$comment->id_ticket");
             
-            
+           
             for ($i = 1; $i < count($_FILES); $i++) {
                 if (isset($_FILES['tktfile' . $i]) && $_FILES['tktfile' . $i]['error'] == 0 && $_FILES['tktfile' . $i]['size'] > 0) {
                     $config = Common_Config::getInstance();
@@ -228,13 +228,17 @@ class PublicController extends Zend_Controller_Action {
 
                     $filename = $_POST['editFrmTktId'] . $_FILES['tktfile'.$i]['name'];
                     //$filesystem_name = sha1($filename);
-                    //var_dump($filename);exit;
+                    
                     if (move_uploaded_file($tmp_filename, $destination . $filename)) {
-                        echo "SUBIOO";
+                         
+                        if ($tkt_f->attached!==null){
                         $tkt_f->attached = $tkt_f->attached.",".$filename;
+                        }  else {
+                            $tkt_f->attached = $filename;
+                        }
                         $id_ticket = $tkt_f->save();
                     } else {
-                        echo "NOOO";
+                        //echo "NOOO";
                     }
                 }
             }

@@ -70,10 +70,10 @@
                                 <td><?= $this->tickets->current()->updated_date ?></td>
                                 <td><?= $this->tickets->current()->support_user ?></td>
                                 <td>
-                        <center> <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
-                            return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;</center>
-                         <!--<a href="#" title="Close" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
-                                     return false;"><span class="glyphicon glyphicon-remove"></span></a> -->
+                                    <center> <a href="#" title="Edit" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
+                                    return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;</center>
+                                     <!--<a href="#" title="Close" onclick="javascript:editTkt(<?= $this->tickets->current()->id ?>);
+                                                 return false;"><span class="glyphicon glyphicon-remove"></span></a> -->
                         </td>
                         </tr>
                     <? endfor; ?>
@@ -132,8 +132,8 @@
                 <div>&nbsp;</div>
                 <form role="form" class="form-horizontal" id="form1" action="/public/savecomment" method="POST" enctype="multipart/form-data">
                     <input type="hidden" id="editFrmTktId" name="editFrmTktId" value="" />
-                    <div class="form-group">
-                        <label for="editFrmTktComment" class="col-sm-2 control-label">Comment</label>
+                    <div class="form-group" id="editFrmTktCommentClass">
+                        <label for="editFrmTktComment" class="col-sm-2 control-label" >Comment</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" id="editFrmTktComment" name="editFrmTktComment" rows="3" ></textarea>
                         </div>
@@ -153,7 +153,7 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10" style="text-align:right">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="submit" id="submitbtn" class="btn btn-default btn-primary" onclick="buttonDisable()"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Send &amp; close</button>
+                            <button type="submit" id="submitbtn" class="btn btn-default btn-primary" ><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Send &amp; close</button>
                         </div>
                     </div>
                 </form>
@@ -172,23 +172,34 @@
 
 <script type="text/javascript">
     
-    function buttonDisable(){
-        document.getElementById("submitbtn").setAttribute('disabled','disabled');
-        document.getElementById("form1").submit();     
-    }
+    $("#form1").submit(function(event){
+        
+        if ($("#editFrmTktComment").val()!=""){
+            $("#editFrmTktCommentClass").addClass("form-group has-success");
+            document.getElementById("submitbtn").setAttribute('disabled','disabled');
+            document.getElementById("form1").submit();     
+        }else{
+            event.preventDefault();//cancela el envio del formulario
+            $("#editFrmTktCommentClass").addClass("form-group has-error");
+            $("#editFrmTktComment").focus();
+        }     
+    });
     
+       
     function setFileStyle(){
         $(":file").filestyle({
             classButton: 'btn btn-default marginLeft10',
             classIcon: 'glyphicon glyphicon-folder-open',
             classInput: 'form-control width200 pull-left'
         });
+   
     }
     
     $(document).ready(setFileStyle());
-    
+    $( "#inputfile1" ).change(function(){addNewFile()});
+
     var last="1";
-    var data;
+
     function addNewFile(){
         if( $("#inputfile"+last).val() != ""){
             
@@ -230,8 +241,7 @@
     }
     
     
-    $( "#inputfile1" ).change(function(){addNewFile()});
-    
+     
     
     
     function editTkt(id) {
@@ -242,7 +252,7 @@
             console.log(_data);
 
                                             
-            if (_data.attachedlink!=null){
+            if (_data.attached!=null){
                 $("#editTktAttached").html("");
                 for(var i=0; i < _data.attachedlink.length; i++){
                     
