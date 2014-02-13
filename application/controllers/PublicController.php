@@ -267,7 +267,7 @@ class PublicController extends Zend_Controller_Action {
 
 
             $mail->setBodyText('New comment added [tkt #' . $comment->id_ticket . ']: ' . $comment->comment . " Subject: " . $subject->title);
-            $mail->setBodyHtml('<h1>New comment added to ticket:  #' . $comment->id_ticket . "</h1>" . "<h2>Subject: " . $subject->title . "</h2>" . "<h3>By: " . Tkt_User::getUser() . "</h3>" . nl2br($comment->comment));
+            $mail->setBodyHtml('<h1>New comment added to ticket:  #' . $comment->id_ticket . "</h1>" . "<h2>Subject: " . $subject->title . "</h2>" .  "<a href=http://tkttool.emmett.avatarlahs.com.ar/admin/?tktid=" . $comment->id_ticket . "&autoedit=1> <h2>Click to edit ticket</h2></a>"  ."<h3>By: " . Tkt_User::getUser() . "</h3>" . nl2br($comment->comment));
             $mail->setFrom('buzz.support@avatarla.com', 'Buzz Support');
             $mail->setReplyTo('buzz.support@avatarla.com', 'Buzz Support');
 
