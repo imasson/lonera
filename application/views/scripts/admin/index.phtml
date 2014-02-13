@@ -43,12 +43,12 @@
                             <select name="tkthelptopic" id="tkthelptopic" class="form-control">
                                 <option value="0">-- Ticket Help Topic --</option>
                                 <? for ($this->helptopics->rewind(); $this->helptopics->valid(); $this->helptopics->next()): ?>
-                                        <option value="<?= $this->helptopics->current()->id ?>"   
-                                            <? if($this->selectHelpTopic == $this->helptopics->current()->id): ?>
-                                            selected="selected"
-                                            <?endif?>
+                                    <option value="<?= $this->helptopics->current()->id ?>"   
+                                    <? if ($this->selectHelpTopic == $this->helptopics->current()->id): ?>
+                                                selected="selected"
+                                            <? endif ?>
                                             ><?= $this->helptopics->current()->title ?></option>
-                                <? endfor; ?>
+                                        <? endfor; ?>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Apply</button>
@@ -96,27 +96,27 @@
             <!-- PAGINADO -->
             <div style="text-align: center">
                 <ul class="pagination">
-                    <li <? if($this->selectedpage==1):?>
-                        class="disabled"
-                        <?endif?>
-                        ><a href="<?=$this->first?>">&laquo; First</a></li>
-                    
-                    <li <? if($this->selectedpage==1):?>
-                        class="disabled"
-                        <?endif?>
-                        ><a href="<?= $this->prev?>">&LT; Previous</a></li>
-                    
-                    <li class="disabled"><a href="#"> Page <?=$this->selectedpage?> of <?=$this->cantpaginas?></a></li>
-                    
-                    <li <? if($this->selectedpage==$this->cantpaginas):?>
-                        class="disabled"
-                        <?endif?>
-                        ><a href="<?=$this->next?>">&GT; Next</a></li>
-                    
-                    <li <? if($this->selectedpage==$this->cantpaginas):?>
-                        class="disabled"
-                        <?endif?>
-                        ><a href="<?= $this->last?>">&raquo; Last</a></li>
+                    <li <? if ($this->selectedpage == 1): ?>
+                            class="disabled"
+                        <? endif ?>
+                        ><a href="<?= $this->first ?>">&laquo; First</a></li>
+
+                    <li <? if ($this->selectedpage == 1): ?>
+                            class="disabled"
+                        <? endif ?>
+                        ><a href="<?= $this->prev ?>">&LT; Previous</a></li>
+
+                    <li class="disabled"><a href="#"> Page <?= $this->selectedpage ?> of <?= $this->cantpaginas ?></a></li>
+
+                    <li <? if ($this->selectedpage == $this->cantpaginas): ?>
+                            class="disabled"
+                        <? endif ?>
+                        ><a href="<?= $this->next ?>">&GT; Next</a></li>
+
+                    <li <? if ($this->selectedpage == $this->cantpaginas): ?>
+                            class="disabled"
+                        <? endif ?>
+                        ><a href="<?= $this->last ?>">&raquo; Last</a></li>
                 </ul>
             </div>
         </div>
@@ -136,7 +136,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Edit ticket</h4>
+                <h4 class="modal-title">Edit ticket </h4>
             </div>
             <div class="modal-body">
                 <div class="bs-callout" id="editTktPriorityClass" style="margin-top:5px">
@@ -152,8 +152,9 @@
 
                 <strong>Support</strong>
                 <div>&nbsp;</div>
-                <form role="form" class="form-horizontal" action="/admin/savetkt" method="POST" enctype="multipart/form-data">
+                <form id="form1" role="form" class="form-horizontal" action="/admin/savetkt" method="POST" enctype="multipart/form-data">
                     <input type="hidden" id="editFrmTktId" name="editFrmTktId" value="" />
+
                     <div class="form-group">
                         <label for="editFrmTktStatus" class="col-sm-2 control-label">Status</label>
                         <div class="col-sm-10">
@@ -166,6 +167,7 @@
                                 <option value="<?= Mod_Status::REJECTED ?>" >REJECTED</option>
                             </select>
                         </div>
+
                     </div>
                     <div class="form-group">
                         <label for="editFrmTktPriority" class="col-sm-2 control-label">Priority</label>
@@ -193,7 +195,18 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div id="fileupload">
+
+                        <div class="form-group" id="fileform1">
+                            <label for="inputfile1" class="col-sm-2 control-label">Upload: </label>
+                            <div class="col-sm-10">
+                                <input id="inputfile1" name="tktfile1" type="file" class="filestyle" >
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="formGroupTextarea" class="form-group">
                         <label for="editFrmTktComment" class="col-sm-2 control-label">Comment</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" id="editFrmTktComment" name="editFrmTktComment" rows="3" ></textarea>
@@ -203,7 +216,7 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10" style="text-align:right">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Send &amp; close</button>
+                            <button id="submitbtn" type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Send &amp; close</button>
                         </div>
                     </div>
                 </form>
@@ -221,16 +234,93 @@
 </div><!-- /.modal -->
 
 <script type="text/javascript">
+    
+    $( document ).ready(function() {
+        if ("<?= $this->autoEdit ?>" == '1'){
+            editTkt("<?= $this->id ?>")
+        }
+    });
 
+    function setFileStyle(){
+        $(":file").filestyle({
+            classButton: 'btn btn-default marginLeft10',
+            classIcon: 'glyphicon glyphicon-folder-open',
+            classInput: 'form-control width200 pull-left'
+        });
+   
+    }
+    $(document).ready(setFileStyle());
+    
+    
+    
+    $("#form1").submit(function(event){
+        console.log("okok");
+        if ($("#editFrmTktComment").val()!=""){
+            $("#formGroupTextarea").addClass("form-group has-success");
+            document.getElementById("submitbtn").setAttribute('disabled','disabled');
+            document.getElementById("form1").submit();     
+        }else{
+            event.preventDefault();//cancela el envio del formulario
+            $("#formGroupTextarea").addClass("form-group has-error");
+            $("#editFrmTktComment").focus();
+        }     
+    });
+    
+    
+    
+    
+    var last="1";
+    $( "#inputfile1" ).change(function(){addNewFile()});
+    
+    function addNewFile(){
+        if( $("#inputfile"+last).val() != ""){
+            
+            var div=document.createElement("div");
+            $(div).attr("class","form-group");
+            $(div).attr("id","fileform"+(parseInt(last)+1));
+        
+            var input=document.createElement("input");
+        
+            $(input).attr("id","inputfile"+(parseInt(last)+1));
+            $(input).attr("name","tktfile"+(parseInt(last)+1));
+            $(input).attr("type","file");
+            $(input).attr("value","");
+            $(input).attr("class","filestyle");
+        
+            var label=document.createElement("label");
+            $(label).attr("class","col-sm-2 control-label");
+            $(label).attr("for","tktfile"+(parseInt(last)+1))
+            $(label).html("");
+        
+            var div2=document.createElement("div");
+            $(div2).attr("class","col-sm-10");
+        
+        
+            $(div).append(label);
+            $(div2).append(input);
+            $(div).append(div2);
+        
+        
+            $( "#fileupload" ).append(div);
+            setFileStyle();
+        
+        
+            $( "#inputfile"+(parseInt(last)+1) ).change(function(){addNewFile()});
+            last++;
+        
+        }
+        
+    }
+    
+    
     function editTkt(id) {
         
         var uri = '/admin/gettkt/id/' + id;
         $.post(uri, {}, function(_data) {
 
             console.log(_data);
-
-                                            
-            if (_data.attached!=null){
+                               
+           /* if (_data.attached!=null){
                 
                 var link=document.createElement("a");
                 $(link).attr("href",_data.attachedlink);
@@ -243,7 +333,29 @@
             }else{
                 $("#editTktAttached").html("");
             }
-                                            
+            */
+           
+           if (_data.attached!=null){
+                $("#editTktAttached").html("");
+                for(var i=0; i < _data.attachedlink.length; i++){
+                    
+                    var link=document.createElement("a");
+                    $(link).attr("href","/upload/"+_data.attachedlink[i]);
+                    $(link).attr("target","_blank");
+                
+                    var fileicon=document.createElement("i");
+                    $(fileicon).addClass("glyphicon glyphicon-file");
+                    $(link).append(fileicon);
+                    $(link).append(_data.attachedlink[i]);
+                    
+                    var space=document.createElement("p");
+                    $(space).html(link);
+                    $("#editTktAttached").append(space);
+                }
+            }else{
+                $("#editTktAttached").html("");
+            }
+            
             $("#editFrmTktId").val(_data.id);
             $("#editTktDate").html(_data.created_date);
             $("#editTktTitle").html(_data.title);
