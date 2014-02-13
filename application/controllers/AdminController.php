@@ -339,7 +339,7 @@ class AdminController extends Zend_Controller_Action {
 
                 $mail = new Zend_Mail('UTF-8');
                 $mail->setBodyText('Updated ticket [tkt #' . $tkt->id . ']: ' . $comment->comment);
-                $mail->setBodyHtml('<h1>Updated ticket:  #' . $tkt->id . "</h1>" . "<h3>By: " . Tkt_User::getUser() . "</h3>" . nl2br($comment->comment));
+                $mail->setBodyHtml('<h1>Updated ticket:  #' . $tkt->id . "</h1>" . "<a href=http://tkttool.emmett.avatarlahs.com.ar/admin/?tktid=" . $tkt->id . "&autoedit=1> <h2>Click to edit ticket</h2></a>" . "<h3>By: " . Tkt_User::getUser() . "</h3>" . nl2br($comment->comment));
                 $mail->setFrom('buzz.support@avatarla.com', 'Buzz Support');
                 $mail->setReplyTo('buzz.support@avatarla.com', 'Buzz Support');
                 $mail->addTo($tkt->created_user);
