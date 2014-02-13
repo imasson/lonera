@@ -59,7 +59,7 @@ class AdminController extends Zend_Controller_Action {
         if (isset($_GET['tktid']) && $_GET['tktid'] > 0) {
             $where .= ' AND id = ' . $_GET['tktid'];
             $uri = $uri . 'tktid=' . $_GET['tktid'];
-            if (isset($_GET['autoedit']) ) {
+            if (isset($_GET['autoedit'])) {
                 $this->view->id = $_GET['tktid'];
                 $this->view->autoEdit = true;
             }
@@ -171,8 +171,14 @@ class AdminController extends Zend_Controller_Action {
         $_data['status'] = Mod_Status::getStatusName($status);
         $_data['statusclass'] = Mod_Status::getStatusViewClass($status);
         $_data['statusvalue'] = $status;
-        $_data['attachedlink'] = '/upload/' . $_data['attached'];
-
+        //$_data['attachedlink'] = '/upload/' . $_data['attached'];
+        
+        
+        $files=  explode(",", $_data['attached']);
+        
+        $_data['attachedlink'] = $files;
+        
+        
         $_data['helptopic'] = '';
         if ($helptopic) {
             $_data['helptopic'] = $helptopic->title;
@@ -274,6 +280,36 @@ class AdminController extends Zend_Controller_Action {
                 $tkt->id_helptopic = $_POST['editFrmTktHelpTopic'];
 
                 $tkt->save();
+
+                $mod_tkt_files = new Mod_Ticket();
+                $id_tkt=$_POST['editFrmTktId'];
+                $tkt_f = $mod_tkt_files->fetchRow("id=$id_tkt");
+
+                for ($i = 1; $i < count($_FILES); $i++) {
+                    if (isset($_FILES['tktfile' . $i]) && $_FILES['tktfile' . $i]['error'] == 0 && $_FILES['tktfile' . $i]['size'] > 0) {
+                        $config = Common_Config::getInstance();
+
+                        $tmp_filename = $_FILES['tktfile' . $i]['tmp_name'];
+
+                        $destination = $config->tkttool->upload->dir;
+
+                        $filename = $_POST['editFrmTktId'] . $_FILES['tktfile' . $i]['name'];
+                        //$filesystem_name = sha1($filename);
+
+                        if (move_uploaded_file($tmp_filename, $destination . $filename)) {
+
+                            if ($tkt_f->attached !== null) {
+                                $tkt_f->attached = $tkt_f->attached . "," . $filename;
+                            } else {
+                                $tkt_f->attached = $filename;
+                            }
+                            $id_ticket = $tkt_f->save();
+                        } else {
+                            //echo "NOOO";
+                        }
+                    }
+                }
+
 
                 if (!empty($_POST['editFrmTktComment'])) {
 

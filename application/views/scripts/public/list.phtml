@@ -195,11 +195,13 @@
    
     }
     
-    $(document).ready(setFileStyle());
-    $( "#inputfile1" ).change(function(){addNewFile()});
-
+    $(document).ready(function(){
+        setFileStyle();
+        
+    });
     var last="1";
-
+    $( "#inputfile1" ).change(function(){addNewFile()});
+    
     function addNewFile(){
         if( $("#inputfile"+last).val() != ""){
             
