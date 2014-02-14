@@ -50,7 +50,7 @@ class PublicController extends Zend_Controller_Action {
         }
 
         $mod_tickets = new Mod_Ticket();
-        $tickets = $mod_tickets->fetchAll($where);
+        $tickets = $mod_tickets->getAllTickets($where, "created_date DESC");
 
         $this->view->tickets = $tickets;
     }
