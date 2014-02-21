@@ -94,15 +94,15 @@ class PublicController extends Zend_Controller_Action {
 
 
             //TRATAR ERROR DE ARCHIVO
-
+            
             if (isset($_FILES['tktfile1']) && $_FILES['tktfile1']['error'] == 0 && $_FILES['tktfile1']['size'] > 0) {
                 $config = Common_Config::getInstance();
-
-                $tmp_filename = $_FILES['tktfile']['tmp_name'];
+                Common_Log::getInstance()->log(print_r($_FILES, true), zend_log::CRIT);
+                $tmp_filename = $_FILES['tktfile1']['tmp_name'];
 
                 $destination = $config->tkttool->upload->dir;
 
-                $filename = $id_ticket . $_FILES['tktfile']['name'];
+                $filename = $id_ticket . $_FILES['tktfile1']['name'];
                 //$filesystem_name = sha1($filename);
 
                 if (move_uploaded_file($tmp_filename, $destination . $filename)) {
@@ -175,9 +175,9 @@ class PublicController extends Zend_Controller_Action {
         $_data['priorityclass'] = Mod_Priority::getPriorityViewClass($priority);
         $_data['status'] = Mod_Status::getStatusName($status);
         $_data['statusclass'] = Mod_Status::getStatusViewClass($status);
-        
-        $files=  explode(",", $_data['attached']);
-        
+
+        $files = explode(",", $_data['attached']);
+
         $_data['attachedlink'] = $files;
         $_data['helptopic'] = '';
         if ($helptopic) {
@@ -216,24 +216,24 @@ class PublicController extends Zend_Controller_Action {
 
             $mod_tkt_files = new Mod_Ticket();
             $tkt_f = $mod_tkt_files->fetchRow("id=$comment->id_ticket");
-            
-           
+
+
             for ($i = 1; $i < count($_FILES); $i++) {
                 if (isset($_FILES['tktfile' . $i]) && $_FILES['tktfile' . $i]['error'] == 0 && $_FILES['tktfile' . $i]['size'] > 0) {
                     $config = Common_Config::getInstance();
 
-                    $tmp_filename = $_FILES['tktfile'.$i]['tmp_name'];
+                    $tmp_filename = $_FILES['tktfile' . $i]['tmp_name'];
 
                     $destination = $config->tkttool->upload->dir;
 
-                    $filename = $_POST['editFrmTktId'] . $_FILES['tktfile'.$i]['name'];
+                    $filename = $_POST['editFrmTktId'] . $_FILES['tktfile' . $i]['name'];
                     //$filesystem_name = sha1($filename);
-                    
+
                     if (move_uploaded_file($tmp_filename, $destination . $filename)) {
-                         
-                        if ($tkt_f->attached!==null){
-                        $tkt_f->attached = $tkt_f->attached.",".$filename;
-                        }  else {
+
+                        if ($tkt_f->attached !== null) {
+                            $tkt_f->attached = $tkt_f->attached . "," . $filename;
+                        } else {
                             $tkt_f->attached = $filename;
                         }
                         $id_ticket = $tkt_f->save();
@@ -242,8 +242,8 @@ class PublicController extends Zend_Controller_Action {
                     }
                 }
             }
-            
-            
+
+
 
             $mod_tkt = new Mod_Ticket();
             $subject = $mod_tkt->fetchRow("id=$comment->id_ticket");
@@ -267,7 +267,7 @@ class PublicController extends Zend_Controller_Action {
 
 
             $mail->setBodyText('New comment added [tkt #' . $comment->id_ticket . ']: ' . $comment->comment . " Subject: " . $subject->title);
-            $mail->setBodyHtml('<h1>New comment added to ticket:  #' . $comment->id_ticket . "</h1>" . "<h2>Subject: " . $subject->title . "</h2>" .  "<a href=http://tkttool.emmett.avatarlahs.com.ar/admin/?tktid=" . $comment->id_ticket . "&autoedit=1> <h2>Click to edit ticket</h2></a>"  ."<h3>By: " . Tkt_User::getUser() . "</h3>" . nl2br($comment->comment));
+            $mail->setBodyHtml('<h1>New comment added to ticket:  #' . $comment->id_ticket . "</h1>" . "<h2>Subject: " . $subject->title . "</h2>" . "<a href=http://tkttool.emmett.avatarlahs.com.ar/admin/?tktid=" . $comment->id_ticket . "&autoedit=1> <h2>Click to edit ticket</h2></a>" . "<h3>By: " . Tkt_User::getUser() . "</h3>" . nl2br($comment->comment));
             $mail->setFrom('buzz.support@avatarla.com', 'Buzz Support');
             $mail->setReplyTo('buzz.support@avatarla.com', 'Buzz Support');
 
