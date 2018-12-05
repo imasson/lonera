@@ -1,0 +1,26 @@
+2014-02-21T10:00:07-03:00 CRIT (2): Array
+(
+    [tktfile1] => Array
+        (
+            [name] => 46CA0F44-C735-4055-98CD-7FCB1386CAE7.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php11B.tmp
+            [error] => 0
+            [size] => 1363085
+        )
+
+)
+
+2014-02-21T10:02:33-03:00 CRIT (2): Array
+(
+    [tktfile1] => Array
+        (
+            [name] => 46CA0F44-C735-4055-98CD-7FCB1386CAE7.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php123.tmp
+            [error] => 0
+            [size] => 1363085
+        )
+
+)
+

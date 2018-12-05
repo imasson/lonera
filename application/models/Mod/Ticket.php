@@ -8,7 +8,7 @@ class Mod_Ticket extends Zend_Db_Table_Abstract {
      * @param string $cond
      * @return Zend_Db_Table_Rowset_Abstract retorna todos los tickets
      */
-    public function getAllTickets($cond,$order=""){
+    public function getAllTickets($cond, $order=""){
         
         $sql = $this->select()->from( $this->_name)->where($cond)->order($order);
         
@@ -50,4 +50,3 @@ class Mod_Ticket extends Zend_Db_Table_Abstract {
         }else return 0;
     }
 }
-?>

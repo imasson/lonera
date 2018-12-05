@@ -22,7 +22,7 @@ class PublicController extends Zend_Controller_Action {
         $this->redirect("/public/list");
     }
 
-    public function listAction() {
+    public function clientsAction() {
 
         $this->view->selected_status_1 = "";
         $this->view->selected_status_2 = "";
@@ -32,12 +32,12 @@ class PublicController extends Zend_Controller_Action {
 
         $this->selected_priority_1 = $this->selected_priority_2 = $this->selected_priority_3 = $this->selected_priority_4 = "";
 
-        $where = "created_user='" . Tkt_User::getUser() . "'";
+        //$where = "created_user='" . Tkt_User::getUser() . "'";
+        $where = '';
+        if (isset($_GET['client_id']) && $_GET['client_id'] > 0)
+            $where .= 'id = ' . $_GET['client_id'];
 
-        if (isset($_GET['tktid']) && $_GET['tktid'] > 0)
-            $where .= ' AND id = ' . $_GET['tktid'];
-
-        if (isset($_GET['tktstatus']) && $_GET['tktstatus'] > 0) {
+        /*if (isset($_GET['tktstatus']) && $_GET['tktstatus'] > 0) {
             $where .= ' AND status = ' . $_GET['tktstatus'];
             $nombre = "selected_status_" . $_GET['tktstatus'];
             $this->view->$nombre = 'selected="selected"';
@@ -47,13 +47,15 @@ class PublicController extends Zend_Controller_Action {
             $where .= ' AND priority = ' . $_GET['tktpriority'];
             $nombre = "selected_priority_" . $_GET['tktpriority'];
             $this->view->$nombre = 'selected="selected"';
-        }
+        }*/
 
-        $mod_tickets = new Mod_Ticket();
-        $tickets = $mod_tickets->getAllTickets($where, "created_date DESC");
+        $client = new Client();
+        $clients = $client->getAllClients($where, '');
 
-        $this->view->tickets = $tickets;
+        $this->view->clients = $clients;
     }
+
+
 
     public function newAction() {
 
@@ -117,36 +119,36 @@ class PublicController extends Zend_Controller_Action {
 
             $_confini = Common_Config::getInstance();
 
-            $config = array(
-                'auth' => 'login',
-                'username' => $_confini->email->smtp->username,
-                'password' => $_confini->email->smtp->password,
-                'port' => $_confini->email->smtp->port,
-                'ssl' => $_confini->email->smtp->ssl
-            );
+            // $config = array(
+            //     'auth' => 'login',
+            //     'username' => $_confini->email->smtp->username,
+            //     'password' => $_confini->email->smtp->password,
+            //     'port' => $_confini->email->smtp->port,
+            //     'ssl' => $_confini->email->smtp->ssl
+            // );
 
-            $transport = new Zend_Mail_Transport_Smtp($_confini->email->smtp->host, $config);
+            // $transport = new Zend_Mail_Transport_Smtp($_confini->email->smtp->host, $config);
 
-            //$accounts = explode(";", $_confini->email->support->accounts);
+            // //$accounts = explode(";", $_confini->email->support->accounts);
 
-            $mail = new Zend_Mail('UTF-8');
-            $mail->setBodyText('New ticket added:  #' . $id_ticket . " Subject:" . $tkt->title);
-            $mail->setBodyHtml('<h1>New ticket added:  #' . $id_ticket . "</h1>" . "<h2>" . "Subject: " . $tkt->title . "</h2>" . "<a href=http://tkttool.emmett.avatarlahs.com.ar/admin/?tktid=" . $id_ticket . "&autoedit=1> <h2>Click to edit ticket</h2></a>" . "<h3>By: " . Tkt_User::getUser() . "</h3>" . nl2br($tkt->description));
-            $mail->setFrom('buzz.support@avatarla.com', 'Buzz Support');
-            $mail->setReplyTo('buzz.support@avatarla.com', 'Buzz Support');
+            // $mail = new Zend_Mail('UTF-8');
+            // $mail->setBodyText('New ticket added:  #' . $id_ticket . " Subject:" . $tkt->title);
+            // $mail->setBodyHtml('<h1>New ticket added:  #' . $id_ticket . "</h1>" . "<h2>" . "Subject: " . $tkt->title . "</h2>" . "<a href=http://tkttool.emmett.avatarlahs.com.ar/admin/?tktid=" . $id_ticket . "&autoedit=1> <h2>Click to edit ticket</h2></a>" . "<h3>By: " . Tkt_User::getUser() . "</h3>" . nl2br($tkt->description));
+            // $mail->setFrom('buzz.support@avatarla.com', 'Buzz Support');
+            // $mail->setReplyTo('buzz.support@avatarla.com', 'Buzz Support');
 
-            $mod_users = new Mod_Users();
-            $users_accounts = $mod_users->fetchAll();
-            for ($users_accounts->rewind(); $users_accounts->valid(); $users_accounts->next()) {
-                $mail->addTo($users_accounts->current()->email);
-            }
+            // $mod_users = new Mod_Users();
+            // $users_accounts = $mod_users->fetchAll();
+            // for ($users_accounts->rewind(); $users_accounts->valid(); $users_accounts->next()) {
+            //     $mail->addTo($users_accounts->current()->email);
+            // }
 
-            $mail->setSubject('TKT - ' . Mod_Priority::getPriorityName($tkt->priority) . ' - ' . $tkt->title);
-            try {
-                $mail->send($transport);
-            } catch (Exception $e) {
-                throw new Exception("We can't email the ticket", 1002);
-            }
+            // $mail->setSubject('TKT - ' . Mod_Priority::getPriorityName($tkt->priority) . ' - ' . $tkt->title);
+            // try {
+            //     $mail->send($transport);
+            // } catch (Exception $e) {
+            //     throw new Exception("We can't email the ticket", 1002);
+            // }
 
             $this->redirect("/public/list");
         } else {
@@ -154,20 +156,20 @@ class PublicController extends Zend_Controller_Action {
         }
     }
 
-    public function gettktAction() {
+    public function getclientAction() {
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
 
         $id = $this->getParam('id');
 
-        $mod_ticket = new Mod_Ticket();
+        $mod_ticket = new Client();
         $tkt = $mod_ticket->fetchRow("id = $id");
 
-        $mod_helptopic = new Mod_HelpTopic();
-        $helptopic = $mod_helptopic->fetchRow("id=" . $tkt->id_helptopic);
+        //$mod_helptopic = new Mod_HelpTopic();
+        //$helptopic = $mod_helptopic->fetchRow("id=" . $tkt->id_helptopic);
 
         $_data = $tkt->toArray();
-        $status = $_data['status'];
+        /*$status = $_data['status'];
         $priority = $_data['priority'];
 
         $_data['description'] = nl2br($_data['description']);
@@ -175,10 +177,13 @@ class PublicController extends Zend_Controller_Action {
         $_data['priorityclass'] = Mod_Priority::getPriorityViewClass($priority);
         $_data['status'] = Mod_Status::getStatusName($status);
         $_data['statusclass'] = Mod_Status::getStatusViewClass($status);
-
-        $files = explode(",", $_data['attached']);
-
-        $_data['attachedlink'] = $files;
+        
+        if (isset($_data['attached'])) {
+            $files = explode(",", $_data['attached']);
+            $_data['attachedlink'] = $files;
+        }
+        
+        
         $_data['helptopic'] = '';
         if ($helptopic) {
             $_data['helptopic'] = $helptopic->title;
@@ -191,7 +196,7 @@ class PublicController extends Zend_Controller_Action {
 
         for ($i = 0; $i < count($_data['comments']); $i++) {
             $_data['comments'][$i]['comment'] = nl2br($_data['comments'][$i]['comment']);
-        }
+        }*/
 
         echo json_encode($_data);
         exit;

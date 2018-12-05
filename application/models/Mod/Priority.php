@@ -28,5 +28,3 @@ class Mod_Priority {
     }
 
 }
-
-?>
