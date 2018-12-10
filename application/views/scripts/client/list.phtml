@@ -1,22 +1,28 @@
 <div class="container bs-docs-container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Clientes</h1>
+            <h1 style="margin-top: 15px">Clientes</h1>
             <br/>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12" role="main">
 
-            <div class="panel panel-default">
+            <div class="card">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Filtrar clientes</div>
-                <div class="panel-body">
-                    <form class="form-inline" role="form">
-                        <div class="form-group">
-                            <label class="sr-only" for="tktid">Cliente #</label>
+                <div class="card-header">Filtrar clientes</div>
+                <div class="card-body">
+                    <form class="form-inline">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <label class="sr-only" for="client_id">Cliente #</label>
                             <input type="text" class="form-control" id="client_id" name="client_id" placeholder="Cliente #">
                         </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                            <label class="sr-only" for="cuit">CUIT #</label>
+                            <input type="text" class="form-control" id="cuit" name="cuit" placeholder="CUIT #">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Aplicar</button>
+
                         <!--<div class="form-group">
                             <label class="sr-only" for="tktstatus">Status</label>
                             <select name="tktstatus" id="tktstatus" class="form-control">
@@ -38,7 +44,6 @@
                                 <option value="<?/*= Mod_Priority::URGENT */?>" <?/*= $this->selected_priority_4 */?>>URGENT</option>
                             </select>
                         </div>-->
-                        <button type="submit" class="btn btn-primary">Apply</button>
                     </form>
                 </div>
             </div>
