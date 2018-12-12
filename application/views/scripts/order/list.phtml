@@ -1,22 +1,36 @@
 <div class="container bs-docs-container">
+    <br>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm">
             <h1>Pedidos</h1>
             <br/>
+        </div>
+        <div class="col-sm">
+            <h1></h1>
+        </div>
+        <div class="col-sm">
+            <a role="button" class="btn btn-primary btn-lg create-button" href="/order/new">
+                Crear Pedido
+            </a>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12" role="main">
-
-            <div class="panel panel-default">
+            <div class="card">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Filtrar pedidos</div>
-                <div class="panel-body">
-                    <form class="form-inline" role="form">
-                        <div class="form-group">
-                            <label class="sr-only" for="tktid">Cliente #</label>
+                <div class="card-header">Filtrar pedidos</div>
+                <div class="card-body">
+                    <form class="form-inline">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <label class="sr-only" for="client_id">Pedido #</label>
                             <input type="text" class="form-control" id="client_id" name="client_id" placeholder="Cliente #">
                         </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                            <label class="sr-only" for="cuit">Total</label>
+                            <input type="text" class="form-control" id="cuit" name="cuit" placeholder="CUIT #">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Aplicar</button>
+
                         <!--<div class="form-group">
                             <label class="sr-only" for="tktstatus">Status</label>
                             <select name="tktstatus" id="tktstatus" class="form-control">
@@ -38,43 +52,10 @@
                                 <option value="<?/*= Mod_Priority::URGENT */?>" <?/*= $this->selected_priority_4 */?>>URGENT</option>
                             </select>
                         </div>-->
-                        <button type="submit" class="btn btn-primary">Apply</button>
                     </form>
                 </div>
             </div>
             <br/>
-            <!--<table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Priority</th>
-                        <th>Status</th>
-                        <th>Created</th>
-                        <th>Updated</th>
-                        <th>Support User</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php /*if ($this->tickets): */?>
-                        <?php /*foreach ($this->tickets as $key => $val): */?>
-                            <tr class="<?php /*echo Mod_Priority::getPriorityViewClass($val->priority) */?>">
-                             <td><?php /*echo $this->escape($val->id) */?></td>
-                             <td><?php /*echo $val->title */?></td>
-                                <td><?php /*echo Mod_Priority::getPriorityName($val->priority) */?></td>
-                                <td><span class="label <?php /*echo Mod_Status::getStatusViewClass($val->status) */?>"><?php /*echo Mod_Status::getStatusName($val->status) */?></span></td>
-                                <td><?php /*echo $val->created_date */?></td>
-                                <td><?php /*echo $val->updated_date */?></td>
-                                <td><?php /*echo $val->support_user */?></td>
-                                <td>
-
-                                </td>
-                            </tr>
-                        <?php /*endforeach; */?>
-                    <?php /*endif; */?>
-                </tbody>
-            </table>-->
             <br/>
             <div class="table-responsive">
             <table class="table table-striped">
@@ -87,6 +68,7 @@
                     <th>Fecha de Pago</th>
                     <th>Tipo</th>
                     <th>Cliente</th>
+                    <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -101,10 +83,10 @@
                             <td><?php echo $val->type_id ?></td>
                             <td><?php echo $val->client_id ?></td>
                             <td>
-                                <center> <a href="#" title="Edit" onclick="javascript:editClient(<?php echo $val->id ?>);
-                                            return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;</center>
-                                <!--<a href="#" title="Close" onclick="javascript:editTkt(<?= $val->id ?>);
-                                                 return false;"><span class="glyphicon glyphicon-remove"></span></a> -->
+                                <a href="#" title="Edit" onclick="editClient(<?php echo $val->id ?>);
+                                        return false;" ><span class="fas fa-pencil-alt"></span></a>&nbsp;&nbsp;
+                                <a href="#" title="Delete" onclick="editTkt(<?= $val->id ?>);
+                                        return false;"><span class="fas fa-trash-alt"></span></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

@@ -8,7 +8,7 @@
 background-color: #563d7c;
 border-color: #CDBFE3;}
 
-.btn-primary:active, .btn-primary:visited, .btn-primary:after , .btn-primary:hover {color: #563d7c;
+.btn-primary:active, .btn-primary:after , .btn-primary:hover {color: #563d7c;
 background-color: #CDBFE3;
 border-color: #CDBFE3;}
 
@@ -56,4 +56,11 @@ border-color: #563d7c;
 }
 .mail{
  font-style:italic;
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+    .create-button {
+        float: right;
+    }
 }

@@ -1,8 +1,11 @@
 <main class="bs-masthead" id="content" role="main">
     <div class="container">
         <h1>Administrador Lonera</h1>
-        <p class="lead">Prueba!</p>
-        <p>
+        <br>
+        <br>
+        <p class="lead">Venta rápida</p>
+
+        <!--<p>
             <a href="/order/list" class="btn btn-outline-inverse btn-lg">Ver pedidos</a>
             <a href="/public/new" class="btn btn-outline-inverse btn-lg">Crear pedido</a>
 
@@ -11,8 +14,29 @@
         <p>
             <a href="/client/list" class="btn btn-outline-inverse btn-lg">Ver clientes</a>
             <a href="/public/new" class="btn btn-outline-inverse btn-lg">Crear cliente</a>
-        </p>
+        </p>-->
+        <?php if ($this->products !== FALSE): ?>
+            <div class="row">
+        <?php for ($i=0; $i<count($this->products); $i+=1) { ?>
+                    <div class="col-sm-4" style="margin-bottom: 20px">
+                        <div class="card bg-transparent text-white border-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Tipo: <?php echo $this->products[$i]->name; ?></h5>
+                                <p class="card-text">Color: <?php echo $this->products[$i]->color; ?></p>
+                                <a href="#" class="btn btn-lg btn-outline-light">Crear pedido</a>
+                            </div>
+                        </div>
+                    </div>
+        <?php } ?>
+                </div>
+                <br>
+
+
+        <?php endif; ?>
     </div>
+
+
+
     <div class="modal fade" id="userLoginForm">
         <div class="modal-dialog">
             <div class="modal-content">

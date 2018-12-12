@@ -1,6 +1,6 @@
 <?php
 
-class PublicController extends Zend_Controller_Action {
+class ProductController extends Zend_Controller_Action {
 
     public function init() {
         if (!Tkt_User::isvalid()) {
@@ -23,36 +23,14 @@ class PublicController extends Zend_Controller_Action {
     }
 
     public function listAction() {
-
-        $this->view->selected_status_1 = "";
-        $this->view->selected_status_2 = "";
-        $this->view->selected_status_3 = "";
-        $this->view->selected_status_4 = "";
-        $this->view->selected_status_5 = "";
-
-        $this->selected_priority_1 = $this->selected_priority_2 = $this->selected_priority_3 = $this->selected_priority_4 = "";
-
-        //$where = "created_user='" . Tkt_User::getUser() . "'";
-        $where = '';
+        $where = 'id > 0 ';
         if (isset($_GET['client_id']) && $_GET['client_id'] > 0)
             $where .= 'id = ' . $_GET['client_id'];
 
-        /*if (isset($_GET['tktstatus']) && $_GET['tktstatus'] > 0) {
-            $where .= ' AND status = ' . $_GET['tktstatus'];
-            $nombre = "selected_status_" . $_GET['tktstatus'];
-            $this->view->$nombre = 'selected="selected"';
-        }
+        $order = new Product();
+        $products = $order->getAllProducts($where, '');
 
-        if (isset($_GET['tktpriority']) && $_GET['tktpriority'] > 0) {
-            $where .= ' AND priority = ' . $_GET['tktpriority'];
-            $nombre = "selected_priority_" . $_GET['tktpriority'];
-            $this->view->$nombre = 'selected="selected"';
-        }*/
-
-        $client = new Client();
-        $clients = $client->getAllClients($where, '');
-
-        $this->view->clients = $clients;
+        $this->view->products = $products;
     }
 
 

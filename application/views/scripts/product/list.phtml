@@ -2,102 +2,72 @@
     <br>
     <div class="row">
         <div class="col-sm">
-            <h1>Clientes</h1>
-            <br/>
+            <h1>Productos</h1>
         </div>
         <div class="col-sm">
             <h1></h1>
         </div>
         <div class="col-sm">
             <button type="button" class="btn btn-primary btn-lg create-button">
-                Crear Cliente
+                Crear Producto
             </button>
         </div>
     </div>
+    <br>
     <div class="row">
         <div class="col-md-12" role="main">
-
             <div class="card">
                 <!-- Default panel contents -->
-                <div class="card-header">Filtrar clientes</div>
+                <div class="card-header">Buscar productos</div>
                 <div class="card-body">
-                    <form class="form-inline">
-                        <div class="form-group mx-sm-3 mb-2">
-                            <label class="sr-only" for="client_id">Cliente #</label>
-                            <input type="text" class="form-control" id="client_id" name="client_id" placeholder="Cliente #">
+                    <form>
+                        <div class="form-row align-items-center">
+                            <div class="col-auto">
+                                <label class="sr-only" for="inlineFormInput">Medida</label>
+                                <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Medida">
+                            </div>
+                            <div class="col-auto">
+                                <label class="sr-only" for="inlineFormInputGroup">Color</label>
+                                <input type="text" class="form-control mb-2" id="inlineFormInputGroup" placeholder="Color">
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary mb-2">Buscar</button>
+                            </div>
                         </div>
-                        <div class="form-group mx-sm-3 mb-2">
-                            <label class="sr-only" for="cuit">CUIT #</label>
-                            <input type="text" class="form-control" id="cuit" name="cuit" placeholder="CUIT #">
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2">Aplicar</button>
                     </form>
                 </div>
             </div>
             <br/>
-            <!--<table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Priority</th>
-                        <th>Status</th>
-                        <th>Created</th>
-                        <th>Updated</th>
-                        <th>Support User</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php /*if ($this->tickets): */?>
-                        <?php /*foreach ($this->tickets as $key => $val): */?>
-                            <tr class="<?php /*echo Mod_Priority::getPriorityViewClass($val->priority) */?>">
-                             <td><?php /*echo $this->escape($val->id) */?></td>
-                             <td><?php /*echo $val->title */?></td>
-                                <td><?php /*echo Mod_Priority::getPriorityName($val->priority) */?></td>
-                                <td><span class="label <?php /*echo Mod_Status::getStatusViewClass($val->status) */?>"><?php /*echo Mod_Status::getStatusName($val->status) */?></span></td>
-                                <td><?php /*echo $val->created_date */?></td>
-                                <td><?php /*echo $val->updated_date */?></td>
-                                <td><?php /*echo $val->support_user */?></td>
-                                <td>
 
-                                </td>
-                            </tr>
-                        <?php /*endforeach; */?>
-                    <?php /*endif; */?>
-                </tbody>
-            </table>-->
             <br/>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Direccion</th>
-                    <th>CUIT</th>
-                    <th>Telefono</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Medida</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php if ($this->clients !== FALSE): ?>
-                    <?php foreach ($this->clients as $key => $val): ?>
-                        <tr class="">
-                            <td><?php echo $this->escape($val->id) ?></td>
+                <?php if ($this->products !== FALSE): ?>
+                    <?php foreach ($this->products as $key => $val): ?>
+                        <tr>
+                            <td scope="row"><?php echo $this->escape($val->id) ?></td>
                             <td><?php echo $val->name ?></td>
-                            <td><?php echo $val->address ?></td>
-                            <td><?php echo $val->cuit ?></td>
-                            <td><?php echo $val->tel ?></td>
+                            <td><?php echo $val->color ?></td>
                             <td>
-                                <center> <a href="#" title="Edit" onclick="editClient(<?php echo $val->id ?>);
-                                            return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;</center>
-                                <!--<a href="#" title="Close" onclick="javascript:editTkt(<?= $val->id ?>);
-                                                 return false;"><span class="glyphicon glyphicon-remove"></span></a> -->
+                                <a href="#" title="Edit" onclick="editClient(<?php echo $val->id ?>);
+                                            return false;" ><span class="fas fa-pencil-alt"></span></a>&nbsp;&nbsp;
+                                <a href="#" title="Delete" onclick="editTkt(<?= $val->id ?>);
+                                                 return false;"><span class="fas fa-trash-alt"></span></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
                 </tbody>
             </table>
+
             <!-- PAGINADO 
             <div style="text-align: center">
                 <ul class="pagination">
