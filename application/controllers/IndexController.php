@@ -17,6 +17,12 @@ class IndexController extends Zend_Controller_Action {
 
     public function indexAction() {
         $this->view->body_class = "bs-docs-home";
+
+        $where = 'id > 0 ';
+        $order = new Product();
+        $products = $order->getAllProducts($where, '');
+
+        $this->view->products = $products;
     }
 
     public function loginAction() {
