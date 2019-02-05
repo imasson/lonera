@@ -9,9 +9,9 @@
             <h1></h1>
         </div>
         <div class="col-sm">
-            <button type="button" class="btn btn-primary btn-lg create-button">
+            <a role="button" class="btn btn-primary btn-lg create-button" href="/client/new">
                 Crear Cliente
-            </button>
+            </a>
         </div>
     </div>
     <div class="row">
@@ -73,6 +73,7 @@
                 <tr>
                     <th>#</th>
                     <th>Nombre</th>
+                    <th>Email</th>
                     <th>Direccion</th>
                     <th>CUIT</th>
                     <th>Telefono</th>
@@ -84,9 +85,10 @@
                         <tr class="">
                             <td><?php echo $this->escape($val->id) ?></td>
                             <td><?php echo $val->name ?></td>
+                            <td><?php echo $val->email ?></td>
                             <td><?php echo $val->address ?></td>
                             <td><?php echo $val->cuit ?></td>
-                            <td><?php echo $val->tel ?></td>
+                            <td><?php echo $val->phone ?></td>
                             <td>
                                 <center> <a href="#" title="Edit" onclick="editClient(<?php echo $val->id ?>);
                                             return false;" ><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;</center>

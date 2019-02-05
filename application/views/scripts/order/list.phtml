@@ -62,12 +62,15 @@
                 <thead>
                 <tr>
                     <th>#</th>
+                    <th>Cliente</th>
+                    <th>Tipo</th>
                     <th>Total</th>
                     <th>Total Pagado</th>
-                    <th>Fecha Creacion</th>
+                    <th>Forma</th>
+                    <th>Vencimiento</th>
                     <th>Fecha de Pago</th>
-                    <th>Tipo</th>
-                    <th>Cliente</th>
+                    <th>Fecha Compra</th>
+
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -76,12 +79,14 @@
                     <?php foreach ($this->orders as $key => $val): ?>
                         <tr class="">
                             <td><?php echo $this->escape($val->id) ?></td>
+                            <td><?php echo $val->client_id ?></td>
+                            <td><?php echo $val->type_id ?></td>
                             <td><?php echo $val->total ?></td>
                             <td><?php echo $val->paid_total ?></td>
-                            <td><?php echo $val->created_at ?></td>
+                            <td><?php echo $val->payment_method ?></td>
+                            <td><?php echo date("d-m-Y", strtotime($val->check_date)) ?></td>
                             <td><?php echo $val->paid_at ?></td>
-                            <td><?php echo $val->type_id ?></td>
-                            <td><?php echo $val->client_id ?></td>
+                            <td><?php echo date("d-m-Y", strtotime($val->created_at)) ?></td>
                             <td>
                                 <a href="#" title="Edit" onclick="editClient(<?php echo $val->id ?>);
                                         return false;" ><span class="fas fa-pencil-alt"></span></a>&nbsp;&nbsp;

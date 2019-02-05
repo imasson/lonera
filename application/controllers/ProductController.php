@@ -37,9 +37,7 @@ class ProductController extends Zend_Controller_Action {
 
     public function newAction() {
 
-        $mod_helptopic = new Mod_HelpTopic();
 
-        $this->view->helptopics = $mod_helptopic->fetchAll();
     }
 
     public function addAction() {
@@ -50,87 +48,24 @@ class ProductController extends Zend_Controller_Action {
          * array(1) { ["tktfile"]=> array(5) { ["name"]=> string(24) "star-trek-2_1-single.jpg" ["type"]=> string(10) "image/jpeg" ["tmp_name"]=> string(23) "C:\xampp\tmp\php6DC.tmp" ["error"]=> int(0) ["size"]=> int(47365) } }
          */
 
-        if (isset($_POST['tktTitle']) && !empty($_POST['tktTitle'])) {
+        if (isset($_POST['name']) && !empty($_POST['name'])) {
 
 
             // ["tktTitle"]=> string(15) "asdasdasdasdasd" ["tktDescription"]=> string(0) "" ["tktHelpTopic"]=> string(1) "0" ["tktPriority"]=> string(1) "0" 
-            $mod_ticket = new Mod_Ticket();
+            $prod = new Product();
 
-            $tkt = $mod_ticket->createRow();
+            $prod = $prod->createRow();
 
-            $tkt->title = $_POST['tktTitle'];
-            $tkt->description = $_POST['tktDescription'];
-            $tkt->id_helptopic = $_POST['tktHelpTopic'];
-            //$tkt->status        = $_POST['']; DEFAULT 1
-            $tkt->created_date = date("Y-m-d h:i:s");
-            $tkt->updated_date = date("Y-m-d h:i:s");
-            $tkt->created_user = Tkt_User::getUser();
+            $prod->name = $_POST['name'];
+            $prod->color = $_POST['color'];
+            $prod->description = $_POST['description'];
 
-            if ($_POST['tktPriority'] > 0)
-                $tkt->priority = $_POST['tktPriority'];
-
-            $id_ticket = $tkt->save();
+            $id = $prod->save();
 
 
-
-            //TRATAR ERROR DE ARCHIVO
-            
-            if (isset($_FILES['tktfile1']) && $_FILES['tktfile1']['error'] == 0 && $_FILES['tktfile1']['size'] > 0) {
-                $config = Common_Config::getInstance();
-                Common_Log::getInstance()->log(print_r($_FILES, true), zend_log::CRIT);
-                $tmp_filename = $_FILES['tktfile1']['tmp_name'];
-
-                $destination = $config->tkttool->upload->dir;
-
-                $filename = $id_ticket . $_FILES['tktfile1']['name'];
-                //$filesystem_name = sha1($filename);
-
-                if (move_uploaded_file($tmp_filename, $destination . $filename)) {
-                    echo "SUBIOO";
-                    $tkt->attached = $filename;
-                    $id_ticket = $tkt->save();
-                } else {
-                    echo "NOOO";
-                }
-            }
-
-
-            $_confini = Common_Config::getInstance();
-
-            // $config = array(
-            //     'auth' => 'login',
-            //     'username' => $_confini->email->smtp->username,
-            //     'password' => $_confini->email->smtp->password,
-            //     'port' => $_confini->email->smtp->port,
-            //     'ssl' => $_confini->email->smtp->ssl
-            // );
-
-            // $transport = new Zend_Mail_Transport_Smtp($_confini->email->smtp->host, $config);
-
-            // //$accounts = explode(";", $_confini->email->support->accounts);
-
-            // $mail = new Zend_Mail('UTF-8');
-            // $mail->setBodyText('New ticket added:  #' . $id_ticket . " Subject:" . $tkt->title);
-            // $mail->setBodyHtml('<h1>New ticket added:  #' . $id_ticket . "</h1>" . "<h2>" . "Subject: " . $tkt->title . "</h2>" . "<a href=http://tkttool.emmett.avatarlahs.com.ar/admin/?tktid=" . $id_ticket . "&autoedit=1> <h2>Click to edit ticket</h2></a>" . "<h3>By: " . Tkt_User::getUser() . "</h3>" . nl2br($tkt->description));
-            // $mail->setFrom('buzz.support@avatarla.com', 'Buzz Support');
-            // $mail->setReplyTo('buzz.support@avatarla.com', 'Buzz Support');
-
-            // $mod_users = new Mod_Users();
-            // $users_accounts = $mod_users->fetchAll();
-            // for ($users_accounts->rewind(); $users_accounts->valid(); $users_accounts->next()) {
-            //     $mail->addTo($users_accounts->current()->email);
-            // }
-
-            // $mail->setSubject('TKT - ' . Mod_Priority::getPriorityName($tkt->priority) . ' - ' . $tkt->title);
-            // try {
-            //     $mail->send($transport);
-            // } catch (Exception $e) {
-            //     throw new Exception("We can't email the ticket", 1002);
-            // }
-
-            $this->redirect("/public/list");
+            $this->redirect("/product/list");
         } else {
-            $this->redirect("/public/new");
+            $this->redirect("/product/new");
         }
     }
 

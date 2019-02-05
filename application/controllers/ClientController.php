@@ -72,49 +72,22 @@ class ClientController extends Zend_Controller_Action {
          * array(1) { ["tktfile"]=> array(5) { ["name"]=> string(24) "star-trek-2_1-single.jpg" ["type"]=> string(10) "image/jpeg" ["tmp_name"]=> string(23) "C:\xampp\tmp\php6DC.tmp" ["error"]=> int(0) ["size"]=> int(47365) } }
          */
 
-        if (isset($_POST['tktTitle']) && !empty($_POST['tktTitle'])) {
+        if (isset($_POST['name']) && !empty($_POST['name'])) {
 
 
             // ["tktTitle"]=> string(15) "asdasdasdasdasd" ["tktDescription"]=> string(0) "" ["tktHelpTopic"]=> string(1) "0" ["tktPriority"]=> string(1) "0" 
-            $mod_ticket = new Mod_Ticket();
+            $client = new Client();
 
-            $tkt = $mod_ticket->createRow();
+            $client = $client->createRow();
 
-            $tkt->title = $_POST['tktTitle'];
-            $tkt->description = $_POST['tktDescription'];
-            $tkt->id_helptopic = $_POST['tktHelpTopic'];
+            $client->name = $_POST['name'];
+            $client->email = $_POST['email'];
+            $client->cuit = $_POST['cuit'];
             //$tkt->status        = $_POST['']; DEFAULT 1
-            $tkt->created_date = date("Y-m-d h:i:s");
-            $tkt->updated_date = date("Y-m-d h:i:s");
-            $tkt->created_user = Tkt_User::getUser();
+            $client->phone = $_POST['phone'];
+            $client->address = $_POST['address'];
 
-            if ($_POST['tktPriority'] > 0)
-                $tkt->priority = $_POST['tktPriority'];
-
-            $id_ticket = $tkt->save();
-
-
-
-            //TRATAR ERROR DE ARCHIVO
-            
-            if (isset($_FILES['tktfile1']) && $_FILES['tktfile1']['error'] == 0 && $_FILES['tktfile1']['size'] > 0) {
-                $config = Common_Config::getInstance();
-                Common_Log::getInstance()->log(print_r($_FILES, true), zend_log::CRIT);
-                $tmp_filename = $_FILES['tktfile1']['tmp_name'];
-
-                $destination = $config->tkttool->upload->dir;
-
-                $filename = $id_ticket . $_FILES['tktfile1']['name'];
-                //$filesystem_name = sha1($filename);
-
-                if (move_uploaded_file($tmp_filename, $destination . $filename)) {
-                    echo "SUBIOO";
-                    $tkt->attached = $filename;
-                    $id_ticket = $tkt->save();
-                } else {
-                    echo "NOOO";
-                }
-            }
+            $id = $client->save();
 
 
             $_confini = Common_Config::getInstance();
@@ -150,9 +123,9 @@ class ClientController extends Zend_Controller_Action {
             //     throw new Exception("We can't email the ticket", 1002);
             // }
 
-            $this->redirect("/public/list");
+            $this->redirect("/client/list");
         } else {
-            $this->redirect("/public/new");
+            $this->redirect("/client/new");
         }
     }
 

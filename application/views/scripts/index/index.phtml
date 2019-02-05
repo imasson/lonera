@@ -1,40 +1,93 @@
 <main class="bs-masthead" id="content" role="main">
     <div class="container">
         <h1>Administrador Lonera</h1>
+
         <br>
         <br>
-        <p class="lead">Venta rápida</p>
+        <br>
+        <div class="row">
+            <div class="col-md-5 back" role="main">
+                <p class="lead">Lonas mas vendidas</p>
+                <table class="table table-striped table-borderless back">
+                    <thead>
+                    <tr>
+                        <th scope="col">Tamaño</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Vendidos</th>
+                        <th scope="col">Metros</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-        <!--<p>
-            <a href="/order/list" class="btn btn-outline-inverse btn-lg">Ver pedidos</a>
-            <a href="/public/new" class="btn btn-outline-inverse btn-lg">Crear pedido</a>
+                    <?php if ($this->products !== FALSE): ?>
+                        <?php foreach ($this->products as $key => $val): ?>
+                            <tr>
+                                <td scope="row"><?php echo $this->escape($val['name']) ?></td>
+                                <td scope="row"><?php echo $this->escape($val['color']) ?></td>
+                                <td><?php echo $val['c'] ?></td>
+                                <td><?php echo $val['mts'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-1" role="main"></div>
 
-
-        </p>
-        <p>
-            <a href="/client/list" class="btn btn-outline-inverse btn-lg">Ver clientes</a>
-            <a href="/public/new" class="btn btn-outline-inverse btn-lg">Crear cliente</a>
-        </p>-->
-        <?php if ($this->products !== FALSE): ?>
-            <div class="row">
-        <?php for ($i=0; $i<count($this->products); $i+=1) { ?>
-                    <div class="col-sm-4" style="margin-bottom: 20px">
-                        <div class="card bg-transparent text-white border-white">
-                            <div class="card-body">
-                                <h5 class="card-title">Tipo: <?php echo $this->products[$i]->name; ?></h5>
-                                <p class="card-text">Color: <?php echo $this->products[$i]->color; ?></p>
-                                <a href="#" class="btn btn-lg btn-outline-light">Crear pedido</a>
+            <div class="col-md-3" role="main">
+                <p class="lead">Efectivo</p>
+                <div class="card bg-transparent text-white border-white back">
+                    <div class="card-body">
+                        <h5 class="card-title">Vendido: $<?php echo $this->totals['total'] ?></h5>
+                        <p class="card-text">Cobrado: $<?php echo $this->totals['paid_total'] ?></p>
+                        <a href="#" class="btn btn-lg btn-outline-light">Ver pedidos</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" role="main">
+                <p class="lead">Cheques</p>
+                <div class="card bg-transparent text-white border-white back">
+                    <div class="card-body">
+                        <h5 class="card-title">Vendido: $<?php echo $this->totals['total'] ?></h5>
+                        <p class="card-text">Cobrado: $<?php echo $this->totals['paid_total'] ?></p>
+                        <a href="#" class="btn btn-lg btn-outline-light">Ver pedidos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row mx-auto">
+                <div class="col-sm-3"></div>
+                <div class="col-sm 12">
+                    <div class="dropdown-divider" style="width: 80%"></div>
+                    <form class="form-inline">
+                        <div class="input-group mb-8 mr-sm-2 form-row align-items-center">
+                            <div class="col-auto datepicker">
+                                <div class="col-sm-1">
+                                    <input placeholder="Desde" name="start" id="start" type="text"
+                                           class="form-control" data-date-format="dd/mm/yyyy">
+                                </div>
+                            </div>
+                            <div class="col-auto datepicker">
+                                <div class="col-sm-1">
+                                    <input placeholder="Hasta" name="end" id="end" type="text"
+                                           class="form-control" data-date-format="dd/mm/yyyy">
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="col-sm-1">
+                                    <button type="submit" class="btn btn-primary">Aplicar</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-        <?php } ?>
+
+                    </form>
                 </div>
-                <br>
-
-
-        <?php endif; ?>
+                <div class="col-sm-1">
+                </div>
+        </div>
     </div>
-
 
 
     <div class="modal fade" id="userLoginForm">
@@ -48,9 +101,10 @@
                     <form role="form" action="/index/login" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="userLoginEmail">Email address</label>
-                            <input type="email" class="form-control" name="userLoginEmail" id="userLoginEmail" placeholder="Enter email">
+                            <input type="email" class="form-control" name="userLoginEmail" id="userLoginEmail"
+                                   placeholder="Enter email">
                         </div>
-                        <button type="submit" class="btn btn-primary" >Login</button>
+                        <button type="submit" class="btn btn-primary">Login</button>
                     </form>
                 </div>
                 <!--<div class="modal-footer">
@@ -58,19 +112,12 @@
                 </div>-->
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->    
+    </div><!-- /.modal -->
 </main>
 
 <script type="text/javascript">
-    $(function() {
-
-        if(<?=$this->not_is_valid_user?>){
-        $('#userLoginForm').modal({
-            backdrop: 'static',
-            keyboard: false,
-            show: true
-        });
-        }
+    $(function () {
+        $('#start').datepicker({language: 'es'});
+        $('#end').datepicker({language: 'es'});
     });
-
 </script>

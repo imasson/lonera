@@ -19,10 +19,18 @@ class IndexController extends Zend_Controller_Action {
         $this->view->body_class = "bs-docs-home";
 
         $where = 'id > 0 ';
-        $order = new Product();
-        $products = $order->getAllProducts($where, '');
+        $order = new Order();
+        $orders = $order->getAllOrdersByProd($where, '');
+        $product = new Product();
 
-        $this->view->products = $products;
+        foreach ($orders as $key => $value) {
+            $row = $product->fetchRow('id=' . $value['type_id']);
+            $orders[$key]['name'] = $row['name'];
+            $orders[$key]['color'] = $row['color'];
+            //$orders[$key]['meters'] += $row['meters'];
+        }
+        $this->view->products = $orders;
+        $this->view->totals = $order->getTotals()[0];
     }
 
     public function loginAction() {

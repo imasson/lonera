@@ -58,6 +58,10 @@ border-color: #563d7c;
  font-style:italic;
 }
 
+.back {
+    background-color: #563d7c !important;
+}
+
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
     .create-button {

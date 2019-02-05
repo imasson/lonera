@@ -1,0 +1,75 @@
+<div class="container bs-docs-container">
+    <br>
+
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+            <h1>Nuevo producto</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-8" role="main">
+            <form id="form1" class="form-horizontal" role="form" action="/product/add" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="tktTitle" class="col-sm-2 control-label">Medida</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Medidas">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="color" class="col-sm-4 control-label">Color</label>
+                    <div class="col-sm-10">
+                        <select name="color" id="color" class="form-control">
+                            <option>Azul</option>
+                            <option>Verde</option>
+                            <option>Negro</option>
+                            <option>Blanco</option>
+                            <option>Gris</option>
+                        </select>
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label for="tktTitle" class="col-sm-3 control-label">Metros lineales</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Mts">
+                    </div>
+                </div>-->
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Ingresa cualquier info extra..."></textarea>
+<!--                        <span class="help-block">Please provide as much detail as possible so we can best assist you.</span>
+-->                    </div>
+                </div>
+
+               <!-- <div class="form-group col-sm-4">
+                      <label for="tktFile">Subir archivo</label>
+                      <input name="tktfile1" type="file" class="form-control-file">
+                </div>-->
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button id="submitbtn" type="submit" class="btn btn-primary" onclick="buttonDisable()"><span class="fas fa-save" ></span>&nbsp;Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-2">&nbsp;</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function buttonDisable(){
+        document.getElementById("submitbtn").setAttribute('disabled','disabled');
+        document.getElementById("form1").submit();     
+    }
+$(function(){
+   $(":file").filestyle({
+       classButton: 'btn btn-default',
+       classIcon: 'fas fa-folder-open',
+       classInput: 'form-control'
+   });
+  
+});
+
+</script>

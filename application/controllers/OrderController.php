@@ -62,13 +62,53 @@ class OrderController extends Zend_Controller_Action
     public function newAction()
     {
         $product = new Product();
+        $client = new Client();
 
         $this->view->products = $product->fetchAll();
+        $this->view->clients = $client->fetchAll();
 
 
         //$mod_helptopic = new Mod_HelpTopic();
 
         //$this->view->helptopics = $mod_helptopic->fetchAll();
+    }
+
+    public function addAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+
+        /*
+         * array(1) { ["tktfile"]=> array(5) { ["name"]=> string(24) "star-trek-2_1-single.jpg" ["type"]=> string(10) "image/jpeg" ["tmp_name"]=> string(23) "C:\xampp\tmp\php6DC.tmp" ["error"]=> int(0) ["size"]=> int(47365) } }
+         */
+
+        //if (isset($_POST['name']) && !empty($_POST['name'])) {
+
+
+        // ["tktTitle"]=> string(15) "asdasdasdasdasd" ["tktDescription"]=> string(0) "" ["tktHelpTopic"]=> string(1) "0" ["tktPriority"]=> string(1) "0"
+        $order = new Order();
+
+        $order = $order->createRow();
+
+        $order->client_id = $_POST['client'];
+        $order->total = $_POST['total'];
+        $order->paid_total = $_POST['paid_total'];
+        $order->payment_method = $_POST['payment_method'];
+        if (isset($_POST['check_date'])) {
+            $date = strtotime($_POST['check_date']);
+            $order->check_date = new Zend_Db_Expr("FROM_UNIXTIME({$date})");
+            //var_dump($order->check_date);die;
+        }
+
+        $order->type_id = $_POST['product'];
+        $order->meters = $_POST['meters'];
+        $order->description = $_POST['description'];
+        $order->created_at = new Zend_Db_Expr('NOW()');
+        //var_dump($order->created_at);die;
+        $id = $order->save();
+
+
+        $this->redirect("/order/list");
     }
 
     public function saveAction()
@@ -80,57 +120,31 @@ class OrderController extends Zend_Controller_Action
          * array(1) { ["tktfile"]=> array(5) { ["name"]=> string(24) "star-trek-2_1-single.jpg" ["type"]=> string(10) "image/jpeg" ["tmp_name"]=> string(23) "C:\xampp\tmp\php6DC.tmp" ["error"]=> int(0) ["size"]=> int(47365) } }
          */
 
-        if (isset($_POST['tktTitle']) && !empty($_POST['tktTitle'])) {
+        //if (isset($_POST['name']) && !empty($_POST['name'])) {
 
 
-            // ["tktTitle"]=> string(15) "asdasdasdasdasd" ["tktDescription"]=> string(0) "" ["tktHelpTopic"]=> string(1) "0" ["tktPriority"]=> string(1) "0" 
-            $mod_ticket = new Mod_Ticket();
+        // ["tktTitle"]=> string(15) "asdasdasdasdasd" ["tktDescription"]=> string(0) "" ["tktHelpTopic"]=> string(1) "0" ["tktPriority"]=> string(1) "0"
+        $order = new Order();
 
-            $tkt = $mod_ticket->createRow();
+        $order = $order->createRow();
 
-            $tkt->title = $_POST['tktTitle'];
-            $tkt->description = $_POST['tktDescription'];
-            $tkt->id_helptopic = $_POST['tktHelpTopic'];
-            //$tkt->status        = $_POST['']; DEFAULT 1
-            $tkt->created_date = date("Y-m-d h:i:s");
-            $tkt->updated_date = date("Y-m-d h:i:s");
-            $tkt->created_user = Tkt_User::getUser();
+        $order->client_id = $_POST['client'];
+        $order->total = $_POST['total'];
+        $order->paid_total = $_POST['paid_total'];
+        $order->payment_method = $_POST['payment_method'];
+        $order->check_date = $_POST['check_date'];
+        $order->type_id = $_POST['product'];
+        $order->meters = $_POST['meters'];
+        $order->description = $_POST['description'];
+        $order->created_at = date("d-m-Y h:i:s");
 
-            if ($_POST['tktPriority'] > 0)
-                $tkt->priority = $_POST['tktPriority'];
-
-            $id_ticket = $tkt->save();
-
-
-            //TRATAR ERROR DE ARCHIVO
-
-            if (isset($_FILES['tktfile1']) && $_FILES['tktfile1']['error'] == 0 && $_FILES['tktfile1']['size'] > 0) {
-                $config = Common_Config::getInstance();
-                Common_Log::getInstance()->log(print_r($_FILES, true), zend_log::CRIT);
-                $tmp_filename = $_FILES['tktfile1']['tmp_name'];
-
-                $destination = $config->tkttool->upload->dir;
-
-                $filename = $id_ticket . $_FILES['tktfile1']['name'];
-                //$filesystem_name = sha1($filename);
-
-                if (move_uploaded_file($tmp_filename, $destination . $filename)) {
-                    echo "SUBIOO";
-                    $tkt->attached = $filename;
-                    $id_ticket = $tkt->save();
-                } else {
-                    echo "NOOO";
-                }
-            }
+        $id = $order->save();
 
 
-            $_confini = Common_Config::getInstance();
-
-
-            $this->redirect("/order/list");
-        } else {
-            $this->redirect("/order/new");
-        }
+        $this->redirect("/product/list");
+        //} else {
+        //    $this->redirect("/product/new");
+        //}
     }
 
 }

@@ -1,0 +1,79 @@
+<div class="container bs-docs-container">
+    <br>
+
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+            <h1>Nuevo cliente</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-8" role="main">
+            <form id="form1" class="form-horizontal" role="form" action="/client/add" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="tktTitle" class="col-sm-2 control-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tktTitle" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tktTitle" class="col-sm-2 control-label">Direccion</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tktTitle" class="col-sm-2 control-label">CUIT</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="cuit" name="cuit" placeholder="CUIT">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tktTitle" class="col-sm-2 control-label">Telefono</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Telefono">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="tktDescription" name="tktDescription" rows="4" placeholder="Ingresa cualquier info extra..."></textarea>
+<!--                        <span class="help-block">Please provide as much detail as possible so we can best assist you.</span>
+-->                    </div>
+                </div>
+
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button id="submitbtn" type="submit" class="btn btn-primary" onclick="buttonDisable()"><span class="fas fa-save" ></span>&nbsp;Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-2">&nbsp;</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function buttonDisable(){
+        document.getElementById("submitbtn").setAttribute('disabled','disabled');
+        document.getElementById("form1").submit();     
+    }
+$(function(){
+   $(":file").filestyle({
+       classButton: 'btn btn-default',
+       classIcon: 'fas fa-folder-open',
+       classInput: 'form-control'
+   });
+  
+});
+
+</script>
