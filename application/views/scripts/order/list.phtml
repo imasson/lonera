@@ -1,103 +1,136 @@
+<?php $total = 0;$paidTotal=0; ?>
 <div class="container bs-docs-container">
     <br>
     <div class="row">
-        <div class="col-sm">
+        <div class="col-sm-2 mt-1">
             <h1>Pedidos</h1>
             <br/>
         </div>
-        <div class="col-sm">
-            <h1></h1>
-        </div>
-        <div class="col-sm">
-            <a role="button" class="btn btn-primary btn-lg create-button" href="/order/new">
+        <div class="col-sm-1 mt-3">
+            <a role="button" class="btn btn-secondary btn-sm create-button" href="/order/new">
                 Crear Pedido
             </a>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12" role="main">
+
+            <br/>
+            <br/>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Cliente</th>
+                        <th>Producto</th>
+                        <th>Total</th>
+                        <th>Pagado</th>
+                        <th>Forma</th>
+                        <th>Vencimiento</th>
+                        <th>Fecha de Pago</th>
+                        <th>Fecha Compra</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if ($this->orders !== FALSE): ?>
+                        <?php foreach ($this->orders as $key => $val): ?>
+                            <?php $total += $val->total;$paidTotal+=$val->paid_total; ?>
+                            <tr class="">
+                                <td><?php echo $this->escape($val->id) ?></td>
+                                <td><?php echo $val->client_id ?></td>
+                                <td><?php echo $val->type_id ?></td>
+                                <td><?php echo $val->total ?></td>
+                                <td><?php echo $val->paid_total ?></td>
+                                <td><?php echo $val->payment_method ?></td>
+                                <td><?php echo date("d-m-Y", strtotime($val->check_date)) ?></td>
+                                <td><?php echo date("d-m-Y", strtotime($val->paid_at)) ?></td>
+                                <td><?php echo date("d-m-Y", strtotime($val->created_at)) ?></td>
+                                <td>
+                                    <a href="#" title="Edit" onclick="editClient(<?php echo $val->id ?>);
+                                            return false;"><span class="fas fa-pencil-alt"></span></a>&nbsp;&nbsp;
+                                    <a href="#" title="Delete" onclick="editTkt(<?= $val->id ?>);
+                                            return false;"><span class="fas fa-trash-alt"></span></a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <tr class="" style="background-color: rgba(0,0,0,0.35)">
+                        <td>Totales</td>
+                        <td></td>
+                        <td></td>
+                        <td><?php echo $total ?></td>
+                        <td><?php echo $paidTotal ?></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br/>
             <div class="card">
                 <!-- Default panel contents -->
                 <div class="card-header">Filtrar pedidos</div>
                 <div class="card-body">
-                    <form class="form-inline">
-                        <div class="form-group mx-sm-3 mb-2">
-                            <label class="sr-only" for="client_id">Pedido #</label>
-                            <input type="text" class="form-control" id="client_id" name="client_id" placeholder="Cliente #">
+                    <form action="/order/list" method="get" novalidate>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label for="client_id">Num. Cliente</label>
+                                <input type="text" value="<?php echo isset($_GET['client_id']) ? $_GET['client_id'] : ''  ?>" class="form-control" id="client_id" name="client_id" placeholder="#">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="type_id">Num. Producto</label>
+                                <input type="text" class="form-control" value="<?php echo isset($_GET['type_id']) ? $_GET['type_id'] : ''  ?>" id="type_id" name="type_id" placeholder="#">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="" for="payment_method">Forma de pago</label>
+                                <select class="form-control custom-select" id="payment_method" name="payment_method">
+                                    <option value="">Elegir...</option>
+                                    <option <?php echo $this->Efectivo ?>value="Efectivo">Efectivo</option>
+                                    <option <?php echo $this->Cheque ?>value="Cheque">Cheque</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group mx-sm-3 mb-2">
-                            <label class="sr-only" for="cuit">Total</label>
-                            <input type="text" class="form-control" id="cuit" name="cuit" placeholder="CUIT #">
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2">Aplicar</button>
+                        <div class="form-row">
+                            <div class="col-md-3 mb-3">
+                                <label for="order_start">Compra desde</label>
+                                <div class="datepicker">
+                                    <input autocomplete="off" placeholder="Hasta" value="<?php echo isset($_GET['order_start']) ? $_GET['order_start'] : ''  ?>" name="order_start" id="order_start" type="text"
+                                           class="form-control" data-date-format="dd/mm/yyyy">
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="order_end">Compra hasta</label>
+                                <div class="datepicker">
+                                    <input autocomplete="off" placeholder="Desde" value="<?php echo isset($_GET['order_end']) ? $_GET['order_end'] : ''  ?>" name="order_end" id="order_end" type="text"
+                                           class="form-control" data-date-format="dd/mm/yyyy">
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="due_date">Vencimiento hasta</label>
+                                <div class="datepicker">
+                                    <input autocomplete="off" placeholder="Hasta" value="<?php echo isset($_GET['due_date']) ? $_GET['due_date'] : ''  ?>" name="due_date" id="due_date" type="text"
+                                           class="form-control" data-date-format="dd/mm/yyyy">
+                                </div>
+                            </div>
 
-                        <!--<div class="form-group">
-                            <label class="sr-only" for="tktstatus">Status</label>
-                            <select name="tktstatus" id="tktstatus" class="form-control">
-                                <option value="0">-- Ticket status --</option>
-                                <option value="<?/*= Mod_Status::WAITING */?>" <?/*= $this->selected_status_1 */?>>WAITING</option>
-                                <option value="<?/*= Mod_Status::IN_PROGRESS */?>" <?/*= $this->selected_status_2 */?>>IN PROGRESS</option>
-                                <option value="<?/*= Mod_Status::RESOLVED */?>" <?/*= $this->selected_status_3 */?>>RESOLVED</option>
-                                <option value="<?/*= Mod_Status::CLOSED */?>" <?/*= $this->selected_status_4 */?>>CLOSED</option>
-                                <option value="<?/*= Mod_Status::REJECTED */?>" <?/*= $this->selected_status_5 */?>>REJECTED</option>
-                            </select>
+                            <div class="col-md-3 mt-2">
+                                <label for="end"></label>
+                                <button class="btn btn-primary form-control" type="submit" >Filtrar</button>
+                            </div>
+
                         </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="tktpriority">Priority</label>
-                            <select name="tktpriority" id="tktpriority" class="form-control">
-                                <option value="0">-- Ticket priority --</option>
-                                <option value="<?/*= Mod_Priority::LOW */?>" <?/*= $this->selected_priority_1 */?>>LOW</option>
-                                <option value="<?/*= Mod_Priority::NORMAL */?>" <?/*= $this->selected_priority_2 */?>>NORMAL</option>
-                                <option value="<?/*= Mod_Priority::HIGH */?>" <?/*= $this->selected_priority_3 */?>>HIGH</option>
-                                <option value="<?/*= Mod_Priority::URGENT */?>" <?/*= $this->selected_priority_4 */?>>URGENT</option>
-                            </select>
-                        </div>-->
+
+
+                </div>
                     </form>
                 </div>
-            </div>
-            <br/>
-            <br/>
-            <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Cliente</th>
-                    <th>Tipo</th>
-                    <th>Total</th>
-                    <th>Total Pagado</th>
-                    <th>Forma</th>
-                    <th>Vencimiento</th>
-                    <th>Fecha de Pago</th>
-                    <th>Fecha Compra</th>
-
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php if ($this->orders !== FALSE): ?>
-                    <?php foreach ($this->orders as $key => $val): ?>
-                        <tr class="">
-                            <td><?php echo $this->escape($val->id) ?></td>
-                            <td><?php echo $val->client_id ?></td>
-                            <td><?php echo $val->type_id ?></td>
-                            <td><?php echo $val->total ?></td>
-                            <td><?php echo $val->paid_total ?></td>
-                            <td><?php echo $val->payment_method ?></td>
-                            <td><?php echo date("d-m-Y", strtotime($val->check_date)) ?></td>
-                            <td><?php echo $val->paid_at ?></td>
-                            <td><?php echo date("d-m-Y", strtotime($val->created_at)) ?></td>
-                            <td>
-                                <a href="#" title="Edit" onclick="editClient(<?php echo $val->id ?>);
-                                        return false;" ><span class="fas fa-pencil-alt"></span></a>&nbsp;&nbsp;
-                                <a href="#" title="Delete" onclick="editTkt(<?= $val->id ?>);
-                                        return false;"><span class="fas fa-trash-alt"></span></a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-                </tbody>
-            </table>
             </div>
             <!-- PAGINADO 
             <div style="text-align: center">
@@ -135,25 +168,31 @@
             </div>
             <div class="modal-body">
                 <div class="bs-callout" id="editTktPriorityClass" style="margin-top:5px">
-                    <h4 id="editTktTitle" >No default class</h4>
+                    <h4 id="editTktTitle">No default class</h4>
                     <h6 id="editTktHelptopic" style="font-weight: bold"></h6>
-                    <p><span id="editTktDate"></span>&nbsp;&nbsp;&nbsp;&nbsp;Priority:&nbsp;<strong><span id="editTktPriority">URGENT</span></strong>&nbsp;&nbsp;&nbsp;&nbsp;Status: <span class="label" id="editTktStatus">WAITING</span></p>
+                    <p><span id="editTktDate"></span>&nbsp;&nbsp;&nbsp;&nbsp;Priority:&nbsp;<strong><span
+                                    id="editTktPriority">URGENT</span></strong>&nbsp;&nbsp;&nbsp;&nbsp;Status: <span
+                                class="label" id="editTktStatus">WAITING</span></p>
                     <div id="editTktAttached">
-                    <!--<p id="editTktAttached"></p>-->
+                        <!--<p id="editTktAttached"></p>-->
                     </div>
                     <hr/>
-                    <p id="editTktDescription">Alerts don't have default classes, only base and modifier classes. A default gray alert doesn't make too much sense, so you're required to specify a type via contextual class. Choose from success, info, warning, or danger.</p>
+                    <p id="editTktDescription">Alerts don't have default classes, only base and modifier classes. A
+                        default gray alert doesn't make too much sense, so you're required to specify a type via
+                        contextual class. Choose from success, info, warning, or danger.</p>
 
                 </div>
 
                 <strong>Add a comment to support</strong>
                 <div>&nbsp;</div>
-                <form role="form" class="form-horizontal" id="form1" action="/public/savecomment" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" id="editFrmTktId" name="editFrmTktId" value="" />
+                <form role="form" class="form-horizontal" id="form1" action="/public/savecomment" method="POST"
+                      enctype="multipart/form-data">
+                    <input type="hidden" id="editFrmTktId" name="editFrmTktId" value=""/>
                     <div class="form-group" id="editFrmTktCommentClass">
-                        <label for="editFrmTktComment" class="col-sm-2 control-label" >Comment</label>
+                        <label for="editFrmTktComment" class="col-sm-2 control-label">Comment</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" id="editFrmTktComment" name="editFrmTktComment" rows="3" ></textarea>
+                            <textarea class="form-control" id="editFrmTktComment" name="editFrmTktComment"
+                                      rows="3"></textarea>
                         </div>
                     </div>
 
@@ -162,7 +201,7 @@
                         <div class="form-group" id="fileform1">
                             <label for="inputfile1" class="col-sm-2 control-label">Upload: </label>
                             <div class="col-sm-10">
-                                <input id="inputfile1" name="tktfile1" type="file" class="filestyle" >
+                                <input id="inputfile1" name="tktfile1" type="file" class="filestyle">
                             </div>
                         </div>
 
@@ -171,7 +210,9 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10" style="text-align:right">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="submit" id="submitbtn" class="btn btn-default btn-primary" ><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Send &amp; close</button>
+                            <button type="submit" id="submitbtn" class="btn btn-default btn-primary"><span
+                                        class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Send &amp; close
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -189,111 +230,116 @@
 </div><!-- /.modal -->
 
 <script type="text/javascript">
-    
-    $("#form1").submit(function(event){
-        
-        if ($("#editFrmTktComment").val()!=""){
+    $(function(){
+        $('.datepicker input').datepicker({language: 'es', format: 'dd-mm-yyyy'});
+
+    });
+
+    $("#form1").submit(function (event) {
+
+        if ($("#editFrmTktComment").val() != "") {
             $("#editFrmTktCommentClass").addClass("form-group has-success");
-            document.getElementById("submitbtn").setAttribute('disabled','disabled');
-            document.getElementById("form1").submit();     
+            document.getElementById("submitbtn").setAttribute('disabled', 'disabled');
+            document.getElementById("form1").submit();
         } else {
             event.preventDefault();//cancela el envio del formulario
             $("#editFrmTktCommentClass").addClass("form-group has-error");
             $("#editFrmTktComment").focus();
-        }     
+        }
     });
-    
-       
-    function setFileStyle(){
+
+
+    function setFileStyle() {
         $(":file").filestyle({
             classButton: 'btn btn-default marginLeft10',
             classIcon: 'glyphicon glyphicon-folder-open',
             classInput: 'form-control width200 pull-left'
         });
-   
+
     }
-    
-    $(document).ready(function(){
+
+    $(document).ready(function () {
         setFileStyle();
-        
+
     });
-    var last="1";
-    $( "#inputfile1" ).change(function(){addNewFile()});
-    
-    function addNewFile(){
-        if( $("#inputfile"+last).val() != ""){
-            
-            var div=document.createElement("div");
-            $(div).attr("class","form-group");
-            $(div).attr("id","fileform"+(parseInt(last)+1));
-        
-            var input=document.createElement("input");
-        
-            $(input).attr("id","inputfile"+(parseInt(last)+1));
-            $(input).attr("name","tktfile"+(parseInt(last)+1));
-            $(input).attr("type","file");
-            $(input).attr("value","");
-            $(input).attr("class","filestyle");
-        
-            var label=document.createElement("label");
-            $(label).attr("class","col-sm-2 control-label");
-            $(label).attr("for","tktfile"+(parseInt(last)+1))
+    var last = "1";
+    $("#inputfile1").change(function () {
+        addNewFile()
+    });
+
+    function addNewFile() {
+        if ($("#inputfile" + last).val() != "") {
+
+            var div = document.createElement("div");
+            $(div).attr("class", "form-group");
+            $(div).attr("id", "fileform" + (parseInt(last) + 1));
+
+            var input = document.createElement("input");
+
+            $(input).attr("id", "inputfile" + (parseInt(last) + 1));
+            $(input).attr("name", "tktfile" + (parseInt(last) + 1));
+            $(input).attr("type", "file");
+            $(input).attr("value", "");
+            $(input).attr("class", "filestyle");
+
+            var label = document.createElement("label");
+            $(label).attr("class", "col-sm-2 control-label");
+            $(label).attr("for", "tktfile" + (parseInt(last) + 1))
             $(label).html("");
-        
-            var div2=document.createElement("div");
-            $(div2).attr("class","col-sm-10");
-        
-        
+
+            var div2 = document.createElement("div");
+            $(div2).attr("class", "col-sm-10");
+
+
             $(div).append(label);
             $(div2).append(input);
             $(div).append(div2);
-        
-        
-            $( "#fileupload" ).append(div);
+
+
+            $("#fileupload").append(div);
             setFileStyle();
-        
-        
-            $( "#inputfile"+(parseInt(last)+1) ).change(function(){addNewFile()});
+
+
+            $("#inputfile" + (parseInt(last) + 1)).change(function () {
+                addNewFile()
+            });
             last++;
-        
+
         }
-        
+
     }
-    
-    
-     
-    
-    
+
+
     function editClient(id) {
 
         var uri = '/public/getclient/id/' + id;
-        $.post(uri, {}, function(_data) {
-           
+        $.post(uri, {}, function (_data) {
+
             console.log(_data);
 
-                                            
-            if (_data.attached!=null){
+
+            if (_data.attached != null) {
                 $("#editTktAttached").html("");
-                for(var i=0; i < _data.attachedlink.length; i++){
-                    
-                    var link=document.createElement("a");
-                    $(link).attr("href","/upload/"+_data.attachedlink[i]);
-                    $(link).attr("target","_blank");
-                
-                    var fileicon=document.createElement("i");
+                for (var i = 0; i < _data.attachedlink.length; i++) {
+
+                    var link = document.createElement("a");
+                    $(link).attr("href", "/upload/" + _data.attachedlink[i]);
+                    $(link).attr("target", "_blank");
+
+                    var fileicon = document.createElement("i");
                     $(fileicon).addClass("glyphicon glyphicon-file");
                     $(link).append(fileicon);
                     $(link).append(_data.attachedlink[i]);
-                    
-                    var space=document.createElement("p");
+
+                    var space = document.createElement("p");
                     $(space).html(link);
                     $("#editTktAttached").append(space);
                 }
-            }else{
+            } else {
                 $("#editTktAttached").html("");
             }
-                                            
-                                            
+
+
             $("#editFrmTktId").val(_data.id);
 
             $("#editTktDate").html(_data.created_date);
@@ -314,29 +360,29 @@
             }
 
             $("#tktcomments").html("");
-            for(var i=0; i < _data.comments.length; i++){
-                                                
+            for (var i = 0; i < _data.comments.length; i++) {
+
                 var title = document.createElement("strong");
                 var date = document.createElement("small");
                 var comment = document.createElement("p");
                 var container = document.createElement("div");
-                                                
+
                 //$(container).addClass('alert alert-info');
-                $(container).css("margin-bottom","5px");
-                                                
-                if( Number(_data.comments[i].is_support_user) === 1 ){
+                $(container).css("margin-bottom", "5px");
+
+                if (Number(_data.comments[i].is_support_user) === 1) {
                     $(container).addClass("text-primary");
                 }
-                                                
-                $(title).html( _data.comments[i].author + ' ' );
-                $(date).html( _data.comments[i].created_date );
-                $(comment).html( _data.comments[i].comment );
-                                                
+
+                $(title).html(_data.comments[i].author + ' ');
+                $(date).html(_data.comments[i].created_date);
+                $(comment).html(_data.comments[i].comment);
+
                 $(title).append(date);
-                                                
+
                 $(container).append(title).append(comment);
                 $("#tktcomments").append(container);
-                                             
+
             }
 
             //<h4 class="media-heading">sarrubia@gmail.com <small>2013-10-01</small></h4>

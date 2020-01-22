@@ -38,20 +38,35 @@ class OrderController extends Zend_Controller_Action
 
         //$where = "created_user='" . Tkt_User::getUser() . "'";
         $where = 'id > 0 ';
-        if (isset($_GET['client_id']) && $_GET['client_id'] > 0)
-            $where .= 'id = ' . $_GET['client_id'];
+        if (isset($_GET['client_id']) && $_GET['client_id'] > 0){
+            $where .= ' and client_id = ' . $_GET['client_id'];
 
-        /*if (isset($_GET['tktstatus']) && $_GET['tktstatus'] > 0) {
-            $where .= ' AND status = ' . $_GET['tktstatus'];
-            $nombre = "selected_status_" . $_GET['tktstatus'];
-            $this->view->$nombre = 'selected="selected"';
+        }
+        if (isset($_GET['type_id']) && $_GET['type_id'] > 0){
+            $where .= ' and type_id = ' . $_GET['type_id'];
         }
 
-        if (isset($_GET['tktpriority']) && $_GET['tktpriority'] > 0) {
-            $where .= ' AND priority = ' . $_GET['tktpriority'];
-            $nombre = "selected_priority_" . $_GET['tktpriority'];
-            $this->view->$nombre = 'selected="selected"';
-        }*/
+        if (isset($_GET['payment_method']) && $_GET['payment_method']){
+            $where .= ' and payment_method = "' . $_GET['payment_method'] . '"';
+            $this->view->{$_GET['payment_method']} = 'selected="selected"';
+        }
+
+        if (isset($_GET['order_start']) && $_GET['order_start'] && isset($_GET['order_end']) && $_GET['order_end'] ) {
+            $date = strtotime($_GET['order_start']);
+            $start = new Zend_Db_Expr("FROM_UNIXTIME({$date})");
+            $date = strtotime($_GET['order_end']);
+            $end = new Zend_Db_Expr("FROM_UNIXTIME({$date})");
+
+            $where .= ' AND created_at BETWEEN '.$start.' AND '.$end.'';
+
+        }
+
+        if (isset($_GET['due_date']) && $_GET['due_date']) {
+            $date = strtotime($_GET['due_date']);
+            $start = new Zend_Db_Expr("FROM_UNIXTIME({$date})");
+
+            $where .= ' AND check_date < '. $start .'';
+        }
 
         $order = new Order();
         $orders = $order->getAllOrders($where, '');

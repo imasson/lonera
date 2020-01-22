@@ -1,7 +1,6 @@
 <main class="bs-masthead" id="content" role="main">
     <div class="container">
         <h1>Administrador Lonera</h1>
-
         <br>
         <br>
         <br>
@@ -120,4 +119,11 @@
         $('#start').datepicker({language: 'es'});
         $('#end').datepicker({language: 'es'});
     });
+    if (<?=$this->not_is_valid_user?>) {
+        $('#userLoginForm').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+    }
 </script>
